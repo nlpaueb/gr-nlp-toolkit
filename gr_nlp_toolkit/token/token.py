@@ -1,8 +1,11 @@
+from typing import List
+
+
 class Token:
     """
     Token class which represents a word/token
     """
-    def __init__(self, subwords: list):
+    def __init__(self, subwords: List[str]):
         """
             Create a Token object setting possible parameters other than the text as None
             @:param: text: The text of the token
