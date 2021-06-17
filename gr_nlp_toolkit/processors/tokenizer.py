@@ -43,6 +43,10 @@ def create_mask_and_tokens(input_tokens: list):
 
 
 class Tokenizer(AbstractProcessor):
+    """
+    Tokenizer class that takes a document as an input with the text field set, tokenizes and returns a document with
+    all fields set
+    """
     def __call__(self, doc: Document):
         # get document's text and strip accent and lowercase
         doc.text = strip_accents_and_lowercase(doc.text)
