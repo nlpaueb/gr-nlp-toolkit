@@ -2,13 +2,13 @@ class Token:
     """
     Token class which represents a word/token
     """
-    def __init__(self, text: str):
+    def __init__(self, subwords: list):
         """
             Create a Token object setting possible parameters other than the text as None
             @:param: text: The text of the token
         """
         # the text
-        self.text = text
+        self.subwords = subwords
 
         # Named Entity Recognition parameters
         # the named entity
@@ -27,12 +27,12 @@ class Token:
         self._deprel = None
 
     @property
-    def text(self):
-        return self._text
+    def subwords(self):
+        return self._subwords
 
-    @text.setter
-    def text(self, value):
-        self._text = value
+    @subwords.setter
+    def subwords(self, value):
+        self._subwords = value
 
     @property
     def ner(self):
