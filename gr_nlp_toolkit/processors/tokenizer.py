@@ -1,5 +1,8 @@
 from typing import List, Tuple
 
+from torch.utils.data import DataLoader, Dataset
+
+from gr_nlp_toolkit.document.dataset import DatasetImpl
 from gr_nlp_toolkit.document.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
@@ -44,11 +47,18 @@ def create_mask_and_tokens(input_tokens: List[int]) -> Tuple[List[str], List[Tok
     return mask, tokens
 
 
+def create_dataset_and_dataloader(input_ids) -> Tuple[Dataset, DataLoader]:
+    dataset = DatasetImpl(input_ids)
+    dataloader = DataLoader(dataset)
+    return dataset, dataloader
+
+
 class Tokenizer(AbstractProcessor):
     """
     Tokenizer class that takes a document as an input with the text field set, tokenizes and returns a document with
     all fields set
     """
+
     def __call__(self, doc: Document) -> Document:
         # get document's text and strip accent and lowercase
         doc.text = strip_accents_and_lowercase(doc.text)
@@ -56,4 +66,6 @@ class Tokenizer(AbstractProcessor):
         doc.input_ids = create_ids(doc.text)
         # create mask and tokens
         doc.mask, doc.tokens = create_mask_and_tokens(convert_to_tokens(doc.input_ids))
+        # create dataloader
+        doc.dataset, doc.dataloader = create_dataset_and_dataloader(doc.input_ids)
         return doc

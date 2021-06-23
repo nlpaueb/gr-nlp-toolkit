@@ -81,6 +81,13 @@ class TestTokenizer(unittest.TestCase):
         self.assertIsNotNone(doc.mask)
         self.assertIsNotNone(doc.tokens)
 
+    def test_create_dataset_and_dataloader(self):
+        input_ids = [101, 370, 6623, 701, 102]
+        dataset, dataloader = create_dataset_and_dataloader(input_ids)
+        self.assertIsNotNone(dataset.input_ids)
+        self.assertIsNotNone(dataloader.dataset)
+        self.assertEqual(dataset, dataloader.dataset)
+        self.assertEqual(dataset.input_ids, input_ids)
 
 if __name__ == '__main__':
     unittest.main()
