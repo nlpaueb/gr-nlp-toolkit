@@ -43,7 +43,7 @@ class NER(AbstractProcessor):
         self.system = pw.System(self.model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
 
         # load the pretrained model
-        # TODO: when we download the model, we should uncomment to next line
+        # TODO: we should uncomment the next line
         # self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:
