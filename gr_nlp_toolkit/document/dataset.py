@@ -9,8 +9,7 @@ class DatasetImpl(Dataset):
 
     def __getitem__(self, index) -> T_co:
         return {
-            'id': [1],
-            "input": [torch.tensor(self._input_ids[index], dtype=torch.long), torch.tensor(len(self._input_ids))]
+            "input": [torch.tensor(self._input_ids[index], dtype=torch.long), torch.tensor(len(self._input_ids[index]))]
         }
 
     def __len__(self):
