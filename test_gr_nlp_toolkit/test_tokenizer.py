@@ -1,6 +1,5 @@
 import unittest
 
-from gr_nlp_toolkit.document.document import Document
 from gr_nlp_toolkit.processors.tokenizer import *
 
 
@@ -88,6 +87,7 @@ class TestTokenizer(unittest.TestCase):
         self.assertIsNotNone(dataloader.dataset)
         self.assertEqual(dataset, dataloader.dataset)
         self.assertEqual(dataset.input_ids, input_ids)
+
 
 if __name__ == '__main__':
     unittest.main()

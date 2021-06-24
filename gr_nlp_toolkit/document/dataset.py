@@ -5,12 +5,16 @@ from torch.utils.data.dataset import T_co
 
 class DatasetImpl(Dataset):
     def __init__(self, input_ids):
-        self._input_ids = input_ids
+        self._input_ids = [input_ids]
 
     def __getitem__(self, index) -> T_co:
         return {
-            "input": torch.tensor(self._input_ids[index], dtype=torch.long)
+            'id': [1],
+            "input": [torch.tensor(self._input_ids[index], dtype=torch.long), torch.tensor(len(self._input_ids))]
         }
+
+    def __len__(self):
+        return 1
 
     @property
     def input_ids(self):
