@@ -47,10 +47,11 @@ class NER(AbstractProcessor):
         # self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:
+        # predict
         predictions = self.system.predict(doc.dataloader, perform_last_activation=True)
-
         predictions = numpy.argmax(predictions['outputs'][0], axis=-1)
 
+        # map predictions -> tokens
         if len(predictions) == len(doc.input_ids):
             for pred, token in zip(predictions, doc.tokens):
                 token.ner = self.I2L[pred]
