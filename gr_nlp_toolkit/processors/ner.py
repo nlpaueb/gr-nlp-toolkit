@@ -51,9 +51,9 @@ class NER(AbstractProcessor):
         predictions = self.system.predict(doc.dataloader, perform_last_activation=True)
         predictions = numpy.argmax(predictions['outputs'][0], axis=-1)
 
-        # map predictions -> tokens
-        if len(predictions) == len(doc.input_ids):
-            for pred, token in zip(predictions, doc.tokens):
+        # map predictions -> tokens, special tokens are not included
+        if len(predictions[1: len(predictions) - 1]) == len(doc.tokens):
+            for pred, token in zip(predictions[1: len(predictions) - 1], doc.tokens):
                 token.ner = self.I2L[pred]
 
         return doc
