@@ -22,5 +22,6 @@ class MyTestCase(unittest.TestCase):
             self.assertIsNotNone(token.ner)
             self.assertTrue(token.ner in I2L_IOBES_18)
 
+
 if __name__ == '__main__':
     unittest.main()
