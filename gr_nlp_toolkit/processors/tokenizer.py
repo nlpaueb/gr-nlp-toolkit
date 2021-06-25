@@ -48,7 +48,7 @@ def create_mask_and_tokens(input_tokens: List[int]) -> Tuple[List[str], List[Tok
 
 
 def create_dataset_and_dataloader(input_ids) -> Tuple[Dataset, DataLoader]:
-    dataset = DatasetImpl(input_ids)
+    dataset = DatasetImpl([input_ids])
     dataloader = DataLoader(dataset)
     return dataset, dataloader
 

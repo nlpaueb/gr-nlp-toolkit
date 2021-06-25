@@ -5,7 +5,7 @@ from torch.utils.data.dataset import T_co
 
 class DatasetImpl(Dataset):
     def __init__(self, input_ids):
-        self._input_ids = [input_ids]
+        self._input_ids = input_ids
 
     def __getitem__(self, index) -> T_co:
         return {

@@ -86,7 +86,7 @@ class TestTokenizer(unittest.TestCase):
         self.assertIsNotNone(dataset.input_ids)
         self.assertIsNotNone(dataloader.dataset)
         self.assertEqual(dataset, dataloader.dataset)
-        self.assertEqual(dataset.input_ids, input_ids)
+        self.assertEqual(dataset.input_ids, [input_ids])
 
 
 if __name__ == '__main__':
