@@ -31,6 +31,8 @@ class NER(AbstractProcessor):
         elif entities == 4:
             self.I2L = I2L_IOBES_4
             self.output_size = size_IOBES_4
+        else:
+            raise ValueError('Entities should be set to 18 or 4')
 
         self.model = NERBERTModel(bert_model, self.output_size, **model_params)
 

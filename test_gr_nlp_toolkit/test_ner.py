@@ -22,6 +22,10 @@ class MyTestCase(unittest.TestCase):
             self.assertIsNotNone(token.ner)
             self.assertTrue(token.ner in I2L_IOBES_18)
 
+    def test_ner_with_value_exception(self):
+        with self.assertRaises(ValueError):
+            NER(entities=2)
+
 
 if __name__ == '__main__':
     unittest.main()
