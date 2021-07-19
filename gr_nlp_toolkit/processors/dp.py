@@ -24,10 +24,10 @@ class DependencyParsing(AbstractProcessor):
     def __init__(self, model_path=None):
         bert_model = AutoModel.from_pretrained(pretrained_bert_name)
 
-        self.I2L_deprels = I2L_deprels
-        self.output_size = len(self.I2L_deprels)
+        self.I2L = I2L_deprels
+        self.output_size = len(self.I2L)
 
-        self.model = DependencyParsingModel(bert_model, self.I2L_deprels, dp)
+        self.model = DependencyParsingModel(bert_model, self.I2L, dp)
 
         # system init
         if torch.cuda.is_available():
@@ -42,13 +42,23 @@ class DependencyParsing(AbstractProcessor):
         # self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:
-        # predict
-        predictions = self.system.predict(doc.dataloader, perform_last_activation=True)
-        predictions = numpy.argmax(predictions['outputs'][0], axis=-1)
-        print(predictions)
-        # map predictions -> tokens, special tokens are not included
-        # if len(predictions[1: len(predictions) - 1]) == len(doc.tokens):
-        #     for pred, token in zip(predictions[1: len(predictions) - 1], doc.tokens):
-        #         token.ner = self.I2L[pred]
+        # predict heads
+        output_heads = 'heads'
+        predictions_heads = self.system.predict(doc.dataloader, perform_last_activation=True,
+                                                model_output_key=output_heads)
+        predictions_heads = numpy.argmax(predictions_heads['outputs'][0], axis=-1)
 
+        # predict deprels
+        output_deprels = 'gathered_deprels'
+        predictions_deprels = self.system.predict(doc.dataloader, perform_last_activation=True,
+                                                model_output_key=output_deprels)
+        predictions_deprels = numpy.argmax(predictions_deprels['outputs'][0], axis=-1)
+
+        # map predictions -> tokens, special tokens are not included
+        if len(predictions_heads[1: len(predictions_heads) - 1]) == len(doc.tokens) \
+                and len(predictions_deprels[1: len(predictions_deprels) - 1]) == len(doc.tokens):
+            for pred_head, pred_deprel, token in zip(predictions_heads[1: len(predictions_heads) - 1],
+                                        predictions_deprels[1: len(predictions_deprels) - 1], doc.tokens):
+                token.head = pred_head
+                token.deprel = self.I2L[pred_deprel]
         return doc
