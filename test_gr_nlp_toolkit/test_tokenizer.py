@@ -38,9 +38,12 @@ class TestTokenizer(unittest.TestCase):
         self.assertEqual(2, len(tokens))
         self.assertEqual(1, len(tokens[0].subwords))
         self.assertEqual(1, len(tokens[1].subwords))
+        self.assertEqual(247, tokens[0]._ids[0])
+        self.assertEqual(6981, tokens[1]._ids[0])
         self.assertEqual('ο', tokens[0].subwords[0])
         self.assertEqual('ποιητης', tokens[1].subwords[0])
-
+        self.assertEqual('ο', tokens[0].text)
+        self.assertEqual('ποιητης', tokens[1].text)
     """"
         Tests with sub-words:
     """
@@ -67,9 +70,14 @@ class TestTokenizer(unittest.TestCase):
         self.assertEqual(2, len(tokens))
         self.assertEqual(1, len(tokens[0].subwords))
         self.assertEqual(2, len(tokens[1].subwords))
+        self.assertEqual(370, tokens[0]._ids[0])
+        self.assertEqual(6623, tokens[1]._ids[0])
+        self.assertEqual(701, tokens[1]._ids[1])
         self.assertEqual('ενα', tokens[0].subwords[0])
         self.assertEqual('ποιηματα', tokens[1].subwords[0])
         self.assertEqual('##κι', tokens[1].subwords[1])
+        self.assertEqual('ενα', tokens[0].text)
+        self.assertEqual('ποιηματακι', tokens[1].text)
 
     def test_tokenizer(self):
         tokenizer = Tokenizer()
