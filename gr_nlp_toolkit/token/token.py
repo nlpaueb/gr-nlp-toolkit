@@ -10,8 +10,15 @@ class Token:
             Create a Token object setting possible parameters other than the text as None
             @:param: text: The text of the token
         """
+
         # the text
+        self.text = ""
+
+        # the subwords
         self.subwords = subwords
+
+        # the ids
+        self._ids = []
 
         # Named Entity Recognition parameters
         # the named entity

@@ -31,7 +31,7 @@ class TestTokenizer(unittest.TestCase):
 
     def test_create_mask_and_tokens_without_subwords(self):
         tokens = ['ο', 'ποιητης']
-        mask, tokens = create_mask_and_tokens(tokens)
+        mask, tokens = create_mask_and_tokens(tokens, [247, 6981])
 
         self.assertEqual(2, len(mask))
         self.assertEqual(['0', '0'], mask)
@@ -61,7 +61,7 @@ class TestTokenizer(unittest.TestCase):
 
     def test_create_mask_and_tokens_with_subwords(self):
         tokens = ['ενα', 'ποιηματα', '##κι']
-        mask, tokens = create_mask_and_tokens(tokens)
+        mask, tokens = create_mask_and_tokens(tokens, [370, 6623, 701])
         self.assertEqual(3, len(mask))
         self.assertEqual(['0', '0', '1'], mask)
         self.assertEqual(2, len(tokens))

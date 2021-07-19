@@ -1,15 +1,3 @@
-import pickle
-from pprint import pprint
-
-
-# def load_I2L():
-#     with open('ud_features_I2L.pickle', 'rb') as f:
-#         upos_to_features = pickle.load(f)
-#         pprint(upos_to_features)
-#         return upos_to_features
-#
-# load_I2L()
-
 properties_POS = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
  'ADP': ['Number', 'Gender', 'Case'],
  'ADV': ['Degree', 'Abbr'],

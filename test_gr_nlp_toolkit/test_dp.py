@@ -13,7 +13,7 @@ class MyTestCase(unittest.TestCase):
         doc = tokenizer(Document('Ο ποιητής'))
 
         dp = DependencyParsing()
-        self.assertIsNotNone(dp.model)
+        self.assertIsNotNone(dp._model)
         self.assertIsNotNone(dp.system)
         doc = dp(doc)
 
