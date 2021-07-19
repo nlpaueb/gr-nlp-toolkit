@@ -13,7 +13,6 @@ from transformers import AutoModel
 from gr_nlp_toolkit.processors.dp_model import DependencyParsingModel
 
 pretrained_bert_name = 'nlpaueb/bert-base-greek-uncased-v1'
-dp = 0
 
 
 class DependencyParsing(AbstractProcessor):
@@ -27,7 +26,7 @@ class DependencyParsing(AbstractProcessor):
         self.I2L = I2L_deprels
         self.output_size = len(self.I2L)
 
-        self.model = DependencyParsingModel(bert_model, self.I2L, dp)
+        self.model = DependencyParsingModel(bert_model, self.I2L, 0)
 
         # system init
         if torch.cuda.is_available():
