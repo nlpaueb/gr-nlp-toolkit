@@ -18,7 +18,7 @@ dp = 0
 
 class DependencyParsing(AbstractProcessor):
     """
-    NER class that takes a document and returns a document with ner fields set
+    DP class that takes a document and returns a document with dp fields set
     """
 
     def __init__(self, model_path=None):
