@@ -19,9 +19,15 @@ class MyTestCase(unittest.TestCase):
         tokens = doc.tokens
         for token in tokens:
             self.assertIsNotNone(token.upos)
+            self.assertTrue(token.upos in I2L_POS['upos'])
+
             self.assertIsNotNone(token.feats)
             self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
-            self.assertTrue(token.upos in I2L_POS['upos'])
+
+            for feat, value in token.feats.items():
+                self.assertTrue(feat in properties_POS[token.upos])
+                self.assertTrue(value in I2L_POS[feat])
+
 
 if __name__ == '__main__':
     unittest.main()
