@@ -21,7 +21,7 @@ class Token:
         # the universal pos tag
         self.upos = None
         # the universal morphological features
-        self.feats = None
+        self.feats = {}
 
         # Dependency Parsing parameters
         # the dependant word index in the sentence
