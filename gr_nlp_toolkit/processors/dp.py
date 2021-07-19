@@ -10,7 +10,7 @@ from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
 from transformers import AutoModel
 
-from gr_nlp_toolkit.processors.dependency_parsing_model import DependencyParsingModel
+from gr_nlp_toolkit.processors.dp_model import DependencyParsingModel
 
 pretrained_bert_name = 'nlpaueb/bert-base-greek-uncased-v1'
 dp = 0

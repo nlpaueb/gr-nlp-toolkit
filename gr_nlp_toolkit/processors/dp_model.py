@@ -1,5 +1,3 @@
-from typing import Any
-
 from torch.nn import LeakyReLU
 
 import pytorch_wrapper.functional as pwF
@@ -29,6 +27,7 @@ class DependencyParsingModel(nn.Module):
         self.arc_bias = nn.Parameter(torch.zeros(1, 768, 1))
         self.rel_bias = nn.Parameter(torch.zeros(1, 1, 1, self.numrels))
 
+        # todo initialization
         self.u_rel = nn.Parameter(torch.zeros(1,768, self.numrels * 768))
 
         self.w_arc = nn.Parameter(torch.zeros(1,768, 768))
@@ -80,5 +79,17 @@ class DependencyParsingModel(nn.Module):
 
         output['heads'] = output_linear_head
         output['deprels'] = output_linear_rel.reshape(bs, mseq, mseq, self.numrels)
+
+        selected_arcs = output_linear_head.argmax(-1)  # bs,mseq (indexes in [0,mseq) )
+        selected_arcs = selected_arcs.unsqueeze(-1).repeat(1, 1, mseq)  # bs,mseq,mseq
+        selected_arcs = selected_arcs.unsqueeze(-1).repeat(1, 1, 1, self.numrels)  # bs,mseq,mseq, numrels
+
+        # print("index shape ", selected_arcs.shape )
+        # print("input tensor " , deprels_output.shape)
+        deprels_output = torch.gather(output_linear_rel, dim=2, index=selected_arcs)  # bs,mseq,mseq,numrels
+        # dim 2 is redundant so must be deleted ( there is only one head for every token)
+        deprels_output = deprels_output.narrow(2, 0, 1)  # bs,mseq,1,numrels
+        deprels_output = deprels_output.squeeze(2)  # bs , mseq,numrels
+        output['gathered_deprels'] = deprels_output
 
         return output
