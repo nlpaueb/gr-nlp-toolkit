@@ -1,5 +1,7 @@
 from typing import List
 
+from gr_nlp_toolkit.data.downloader_gdrive import GDriveDownloader
+from gr_nlp_toolkit.data.processor_cache import ProcessorCache
 from gr_nlp_toolkit.document.document import Document
 from gr_nlp_toolkit.processors.dp import DependencyParsing
 from gr_nlp_toolkit.processors.ner import NER
@@ -14,6 +16,8 @@ class Pipeline:
     """
 
     def __init__(self, processors: str):
+        self._processor_cache = ProcessorCache(GDriveDownloader())
+
         self._processors = []
         processors = set(processors.split(","))
         available_processors = ['ner', 'pos', 'dp']
@@ -22,11 +26,14 @@ class Pipeline:
         self._processors.append(Tokenizer())
         for p in processors:
             if p == available_processors[0]:
-                self._processors.append(NER())
+                ner_path = self._processor_cache.get_processor_path('ner')
+                self._processors.append(NER(model_path=ner_path))
             elif p == available_processors[1]:
-                self._processors.append(POS())
+                pos_path = self._processor_cache.get_processor_path('pos')
+                self._processors.append(POS(model_path=pos_path))
             elif p == available_processors[2]:
-                self._processors.append(DependencyParsing())
+                dp_path = self._processor_cache.get_processor_path('dp')
+                self._processors.append(DependencyParsing(model_path=dp_path))
             else:
                 raise Exception(f"Invalid processor name, please choose one of {available_processors}")
 
