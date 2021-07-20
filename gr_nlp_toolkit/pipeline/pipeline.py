@@ -1,9 +1,9 @@
-from typing import List
+from transformers import AutoModel
 
 from gr_nlp_toolkit.data.downloader_gdrive import GDriveDownloader
 from gr_nlp_toolkit.data.processor_cache import ProcessorCache
 from gr_nlp_toolkit.document.document import Document
-from gr_nlp_toolkit.processors.dp import DependencyParsing
+from gr_nlp_toolkit.processors.dp import DP
 from gr_nlp_toolkit.processors.ner import NER
 from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
@@ -22,18 +22,23 @@ class Pipeline:
         processors = set(processors.split(","))
         available_processors = ['ner', 'pos', 'dp']
 
+        # bert model init
+        blockPrint()
+        bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
+        enablePrint()
+
         # Adding the tokenizer processor
         self._processors.append(Tokenizer())
         for p in processors:
             if p == available_processors[0]:
                 ner_path = self._processor_cache.get_processor_path('ner')
-                self._processors.append(NER(model_path=ner_path))
+                self._processors.append(NER(bert_model, model_path=ner_path))
             elif p == available_processors[1]:
                 pos_path = self._processor_cache.get_processor_path('pos')
-                self._processors.append(POS(model_path=pos_path))
+                self._processors.append(POS(bert_model, model_path=pos_path))
             elif p == available_processors[2]:
                 dp_path = self._processor_cache.get_processor_path('dp')
-                self._processors.append(DependencyParsing(model_path=dp_path))
+                self._processors.append(DP(bert_model, model_path=dp_path))
             else:
                 raise Exception(f"Invalid processor name, please choose one of {available_processors}")
 

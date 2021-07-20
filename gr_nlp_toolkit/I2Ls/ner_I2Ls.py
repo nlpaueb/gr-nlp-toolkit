@@ -68,8 +68,6 @@ I2L_IOBES_18 = ['O',
            'I-ORDINAL',
            'E-ORDINAL']
 
-size_IOBES_18 = 69
-
 I2L_IOBES_4 = ['O',
  'S-LOC',
  'S-ORG',
@@ -87,5 +85,3 @@ I2L_IOBES_4 = ['O',
  'I-MISC',
  'E-MISC',
  'I-LOC']
-
-size_IOBES_4 = 17

@@ -6,14 +6,14 @@ from torch import nn
 import torch
 
 
-class DependencyParsingModel(nn.Module):
+class DPModel(nn.Module):
 
     def __init__(self, bert_model, deprel_i2l, dp):
         """
         :param bert_model:  The bert model nn.Module
         :param dp: the drop out probability
         """
-        super(DependencyParsingModel, self).__init__()
+        super(DPModel, self).__init__()
         self.numrels = len(deprel_i2l)
         self._bert_model = bert_model
         self._dp = nn.Dropout(dp)
