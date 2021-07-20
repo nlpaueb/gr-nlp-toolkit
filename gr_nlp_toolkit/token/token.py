@@ -13,29 +13,29 @@ class Token:
         """
 
         # the text
-        self.text = ""
+        self._text = ""
 
         # the subwords
-        self.subwords = subwords
+        self._subwords = subwords
 
         # the ids
         self._ids = []
 
         # Named Entity Recognition parameters
         # the named entity
-        self.ner = None
+        self._ner = None
 
         # Part of Speech Tagging parameters
         # the universal pos tag
-        self.upos = None
+        self._upos = None
         # the universal morphological features
-        self.feats = {}
+        self._feats = {}
 
         # Dependency Parsing parameters
         # the dependant word index in the sentence
-        self.head = None
+        self._head = None
         # the label of the relation between the specific word and the dependant one
-        self.deprel = None
+        self._deprel = None
 
     @property
     def text(self):
@@ -52,6 +52,14 @@ class Token:
     @subwords.setter
     def subwords(self, value):
         self._subwords = value
+
+    @property
+    def ids(self):
+        return self._ids
+
+    @ids.setter
+    def ids(self, value):
+        self._ids = value
 
     @property
     def ner(self):

@@ -52,22 +52,22 @@ def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tup
         i = input[1]
         # it isn't a sub-word
         if not t.startswith("##"):
-            #  create a token object
+            # create a token object
             tokenObj = Token([t])
-            tokenObj._ids.append(i)
+            tokenObj.ids.append(i)
             tokens.append(tokenObj)
             mask.append('0')
             word = word + 1
         else:
             # add sub-words to token
             tokenObj.subwords.append(t)
-            tokenObj._ids.append(i)
+            tokenObj.ids.append(i)
             mask.append('1')
         subword2word[j] = word
 
     # create text
     for token in tokens:
-        token.text = create_text(token._ids)
+        token.text = create_text(token.ids)
 
     return mask, tokens, subword2word
 
