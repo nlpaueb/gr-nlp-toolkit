@@ -44,7 +44,7 @@ class TestTokenizer(unittest.TestCase):
         self.assertEqual('ποιητης', tokens[1].subwords[0])
         self.assertEqual('ο', tokens[0].text)
         self.assertEqual('ποιητης', tokens[1].text)
-        self.assertEqual(len(subword2word.keys()), 2)
+        self.assertEqual(len(subword2word.keys()), 3)
         self.assertEqual(subword2word[1], 1)
         self.assertEqual(subword2word[2], 2)
 
@@ -83,7 +83,7 @@ class TestTokenizer(unittest.TestCase):
         self.assertEqual('##κι', tokens[1].subwords[1])
         self.assertEqual('ενα', tokens[0].text)
         self.assertEqual('ποιηματακι', tokens[1].text)
-        self.assertEqual(len(subword2word.keys()), 3)
+        self.assertEqual(len(subword2word.keys()), 4)
         self.assertEqual(subword2word[1], 1)
         self.assertEqual(subword2word[2], 2)
         self.assertEqual(subword2word[3], 2)
