@@ -12,7 +12,7 @@ class MyTestCase(unittest.TestCase):
         doc = tokenizer(Document('Ο ποιητής'))
 
         pos = POS()
-        self.assertIsNotNone(pos.model)
+        self.assertIsNotNone(pos._model)
         self.assertIsNotNone(pos.system)
         doc = pos(doc)
 

@@ -17,24 +17,18 @@ pretrained_bert_name = 'nlpaueb/bert-base-greek-uncased-v1'
 
 class DependencyParsing(AbstractProcessor):
     """
-    DP class that takes a document and returns a document with dp fields set
+    DP class that takes a document and returns a document with tokens' head and deprels fields set
     """
 
-    def __init__(self, model_path=None):
+    def __init__(self, model_path=None, device='cpu'):
         bert_model = AutoModel.from_pretrained(pretrained_bert_name)
 
         self.I2L = I2L_deprels
         self.output_size = len(self.I2L)
 
-        self.model = DependencyParsingModel(bert_model, self.I2L, 0)
+        self._model = DependencyParsingModel(bert_model, self.I2L, 0)
 
-        # system init
-        if torch.cuda.is_available():
-            device = 'cuda'
-        else:
-            device = 'cpu'
-
-        self.system = pw.System(self.model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
+        self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
 
         # load the pretrained model
         if model_path != None:
