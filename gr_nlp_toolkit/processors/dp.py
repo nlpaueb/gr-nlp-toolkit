@@ -31,8 +31,9 @@ class DependencyParsing(AbstractProcessor):
         self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
 
         # load the pretrained model
-        # TODO: we should uncomment the next line
-        # self.system.load_model_state(model_path)
+        if model_path != None:
+            with open(model_path, 'rb') as f:
+                self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:
         # predict heads
@@ -52,6 +53,6 @@ class DependencyParsing(AbstractProcessor):
                 and len(predictions_deprels[1: len(predictions_deprels) - 1]) == len(doc.tokens):
             for pred_head, pred_deprel, token in zip(predictions_heads[1: len(predictions_heads) - 1],
                                         predictions_deprels[1: len(predictions_deprels) - 1], doc.tokens):
-                token.head = pred_head
+                token.head = doc.subword2word[pred_head]
                 token.deprel = self.I2L[pred_deprel]
         return doc

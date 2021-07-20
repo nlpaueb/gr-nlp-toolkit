@@ -39,8 +39,9 @@ class NER(AbstractProcessor):
         self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
 
         # load the pretrained model
-        # TODO: we should uncomment the next line
-        # self.system.load_model_state(model_path)
+        if model_path != None:
+            with open(model_path, 'rb') as f:
+                self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:
         # predict
