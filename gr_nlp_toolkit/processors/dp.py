@@ -53,6 +53,6 @@ class DependencyParsing(AbstractProcessor):
                 and len(predictions_deprels[1: len(predictions_deprels) - 1]) == len(doc.tokens):
             for pred_head, pred_deprel, token in zip(predictions_heads[1: len(predictions_heads) - 1],
                                         predictions_deprels[1: len(predictions_deprels) - 1], doc.tokens):
-                token.head = pred_head
+                token.head = doc.subword2word[pred_head]
                 token.deprel = self.I2L[pred_deprel]
         return doc

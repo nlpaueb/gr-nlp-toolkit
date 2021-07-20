@@ -16,7 +16,8 @@ class TestPipeline(unittest.TestCase):
             self.assertTrue(token.ner in I2L_IOBES_18)
             self.assertIsNotNone(token.head)
             self.assertIsNotNone(token.deprel)
-            self.assertTrue(token.head in range(0, len(doc.tokens)))
+            # We have to add plus one, because the cls token is removed
+            self.assertTrue(token.head in range(0, len(doc.tokens) +1))
             self.assertTrue(token.deprel in I2L_deprels)
             self.assertIsNotNone(token.upos)
             self.assertTrue(token.upos in I2L_POS['upos'])

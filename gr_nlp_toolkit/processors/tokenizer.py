@@ -69,6 +69,9 @@ def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tup
     for token in tokens:
         token.text = create_text(token.ids)
 
+    # Adding a 0-0 mapping to subword2word
+    subword2word[0] = 0
+
     return mask, tokens, subword2word
 
 
