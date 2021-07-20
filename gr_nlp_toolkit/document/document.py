@@ -19,6 +19,9 @@ class Document:
 
         self._dataloader = None
 
+        self._subword2word = None
+
+
     """
     Return the original text of the document
     """
@@ -75,3 +78,11 @@ class Document:
     @dataloader.setter
     def dataloader(self, value):
         self._dataloader = value
+
+    @property
+    def subword2word(self):
+        return self._subword2word
+
+    @subword2word.setter
+    def subword2word(self, value):
+        self._subword2word = value
