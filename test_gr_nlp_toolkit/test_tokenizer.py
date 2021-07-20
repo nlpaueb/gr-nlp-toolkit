@@ -34,7 +34,7 @@ class TestTokenizer(unittest.TestCase):
         mask, tokens, subword2word = create_mask_and_tokens(tokens, [247, 6981])
 
         self.assertEqual(2, len(mask))
-        self.assertEqual(['0', '0'], mask)
+        self.assertEqual([True, True], mask)
         self.assertEqual(2, len(tokens))
         self.assertEqual(1, len(tokens[0].subwords))
         self.assertEqual(1, len(tokens[1].subwords))
@@ -71,7 +71,7 @@ class TestTokenizer(unittest.TestCase):
         mask, tokens, subword2word = create_mask_and_tokens(tokens, [370, 6623, 701])
 
         self.assertEqual(3, len(mask))
-        self.assertEqual(['0', '0', '1'], mask)
+        self.assertEqual([True, True, False], mask)
         self.assertEqual(2, len(tokens))
         self.assertEqual(1, len(tokens[0].subwords))
         self.assertEqual(2, len(tokens[1].subwords))
@@ -94,7 +94,7 @@ class TestTokenizer(unittest.TestCase):
         # document has all field set
         self.assertIsNotNone(doc.text)
         self.assertIsNotNone(doc.input_ids)
-        self.assertIsNotNone(doc.mask)
+        self.assertIsNotNone(doc.token_mask)
         self.assertIsNotNone(doc.tokens)
         self.assertIsNotNone(doc.subword2word)
 
