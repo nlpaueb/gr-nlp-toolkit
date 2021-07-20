@@ -96,6 +96,7 @@ class TestTokenizer(unittest.TestCase):
         self.assertIsNotNone(doc.input_ids)
         self.assertIsNotNone(doc.mask)
         self.assertIsNotNone(doc.tokens)
+        self.assertIsNotNone(doc.subword2word)
 
     def test_create_dataset_and_dataloader(self):
         input_ids = [101, 370, 6623, 701, 102]
