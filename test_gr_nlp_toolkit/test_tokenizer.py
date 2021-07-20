@@ -31,15 +31,22 @@ class TestTokenizer(unittest.TestCase):
 
     def test_create_mask_and_tokens_without_subwords(self):
         tokens = ['ο', 'ποιητης']
-        mask, tokens = create_mask_and_tokens(tokens)
+        mask, tokens, subword2word = create_mask_and_tokens(tokens, [247, 6981])
 
         self.assertEqual(2, len(mask))
         self.assertEqual(['0', '0'], mask)
         self.assertEqual(2, len(tokens))
         self.assertEqual(1, len(tokens[0].subwords))
         self.assertEqual(1, len(tokens[1].subwords))
+        self.assertEqual(247, tokens[0]._ids[0])
+        self.assertEqual(6981, tokens[1]._ids[0])
         self.assertEqual('ο', tokens[0].subwords[0])
         self.assertEqual('ποιητης', tokens[1].subwords[0])
+        self.assertEqual('ο', tokens[0].text)
+        self.assertEqual('ποιητης', tokens[1].text)
+        self.assertEqual(len(subword2word.keys()), 3)
+        self.assertEqual(subword2word[1], 1)
+        self.assertEqual(subword2word[2], 2)
 
     """"
         Tests with sub-words:
@@ -61,15 +68,25 @@ class TestTokenizer(unittest.TestCase):
 
     def test_create_mask_and_tokens_with_subwords(self):
         tokens = ['ενα', 'ποιηματα', '##κι']
-        mask, tokens = create_mask_and_tokens(tokens)
+        mask, tokens, subword2word = create_mask_and_tokens(tokens, [370, 6623, 701])
+
         self.assertEqual(3, len(mask))
         self.assertEqual(['0', '0', '1'], mask)
         self.assertEqual(2, len(tokens))
         self.assertEqual(1, len(tokens[0].subwords))
         self.assertEqual(2, len(tokens[1].subwords))
+        self.assertEqual(370, tokens[0]._ids[0])
+        self.assertEqual(6623, tokens[1]._ids[0])
+        self.assertEqual(701, tokens[1]._ids[1])
         self.assertEqual('ενα', tokens[0].subwords[0])
         self.assertEqual('ποιηματα', tokens[1].subwords[0])
         self.assertEqual('##κι', tokens[1].subwords[1])
+        self.assertEqual('ενα', tokens[0].text)
+        self.assertEqual('ποιηματακι', tokens[1].text)
+        self.assertEqual(len(subword2word.keys()), 4)
+        self.assertEqual(subword2word[1], 1)
+        self.assertEqual(subword2word[2], 2)
+        self.assertEqual(subword2word[3], 2)
 
     def test_tokenizer(self):
         tokenizer = Tokenizer()
@@ -79,6 +96,7 @@ class TestTokenizer(unittest.TestCase):
         self.assertIsNotNone(doc.input_ids)
         self.assertIsNotNone(doc.mask)
         self.assertIsNotNone(doc.tokens)
+        self.assertIsNotNone(doc.subword2word)
 
     def test_create_dataset_and_dataloader(self):
         input_ids = [101, 370, 6623, 701, 102]
