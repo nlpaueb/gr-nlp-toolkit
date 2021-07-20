@@ -5,6 +5,7 @@ class Token:
     """
     Token class which represents a word/token
     """
+
     def __init__(self, subwords: List[str]):
         """
             Create a Token object setting possible parameters other than the text as None
@@ -32,9 +33,17 @@ class Token:
 
         # Dependency Parsing parameters
         # the dependant word index in the sentence
-        self._head = None
+        self.head = None
         # the label of the relation between the specific word and the dependant one
-        self._deprel = None
+        self.deprel = None
+
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        self._text = value
 
     @property
     def subwords(self):
