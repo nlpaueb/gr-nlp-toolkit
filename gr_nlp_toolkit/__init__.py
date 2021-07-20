@@ -1,1 +1,1 @@
-from gr_nlp_toolkit.pipeline import Pipeline
+from gr_nlp_toolkit.pipeline.pipeline import Pipeline
