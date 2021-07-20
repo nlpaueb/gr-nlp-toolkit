@@ -7,7 +7,7 @@ setuptools.setup(
     name="gr-nlp-toolkit",
     version="0.0.1",
     author="nlpaueb",
-    author_email="p3170148@aueb.gr",
+    author_email="p3170148@aueb.gr, p3170039@aueb.gr",
     description="A Transformer-based Natural Language Processing Pipeline for Greek",
     long_description=long_description,
     long_description_content_type="text/markdown",
