@@ -21,7 +21,7 @@ class NER(AbstractProcessor):
     NER class that takes a document and returns a document with ner fields set
     """
 
-    def __init__(self, model_path=None, entities=18):
+    def __init__(self, model_path=None, device='cpu', entities=18,):
         # bert model init
         bert_model = AutoModel.from_pretrained(pretrained_bert_name)
 
@@ -34,15 +34,9 @@ class NER(AbstractProcessor):
         else:
             raise ValueError('Entities should be set to 18 or 4')
 
-        self.model = NERBERTModel(bert_model, self.output_size, **model_params)
+        self._model = NERBERTModel(bert_model, self.output_size, **model_params)
 
-        # system init
-        if torch.cuda.is_available():
-            device = 'cuda'
-        else:
-            device = 'cpu'
-
-        self.system = pw.System(self.model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
+        self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
 
         # load the pretrained model
         # TODO: we should uncomment the next line

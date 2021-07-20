@@ -5,23 +5,31 @@ class Token:
     """
     Token class which represents a word/token
     """
+
     def __init__(self, subwords: List[str]):
         """
             Create a Token object setting possible parameters other than the text as None
             @:param: text: The text of the token
         """
+
         # the text
-        self.subwords = subwords
+        self._text = ""
+
+        # the subwords
+        self._subwords = subwords
+
+        # the ids
+        self._ids = []
 
         # Named Entity Recognition parameters
         # the named entity
-        self.ner = None
+        self._ner = None
 
         # Part of Speech Tagging parameters
         # the universal pos tag
-        self.upos = None
+        self._upos = None
         # the universal morphological features
-        self.feats = {}
+        self._feats = {}
 
         # Dependency Parsing parameters
         # the dependant word index in the sentence
@@ -30,12 +38,28 @@ class Token:
         self._deprel = None
 
     @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        self._text = value
+
+    @property
     def subwords(self):
         return self._subwords
 
     @subwords.setter
     def subwords(self, value):
         self._subwords = value
+
+    @property
+    def ids(self):
+        return self._ids
+
+    @ids.setter
+    def ids(self, value):
+        self._ids = value
 
     @property
     def ner(self):

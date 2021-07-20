@@ -20,7 +20,7 @@ class POS(AbstractProcessor):
     POS class that takes a document and returns a document with tokens' upos and feats fields set
     """
 
-    def __init__(self, model_path=None):
+    def __init__(self, model_path=None, device='cpu'):
         # bert model init
         bert_model = AutoModel.from_pretrained(pretrained_bert_name)
 
@@ -28,15 +28,9 @@ class POS(AbstractProcessor):
         self.feat_to_I2L = I2L_POS
         self.feat_to_size = {k: len(v) for k, v in self.feat_to_I2L.items()}
 
-        self.model = POSModel(bert_model, self.feat_to_size, 0)
+        self._model = POSModel(bert_model, self.feat_to_size, 0)
 
-        # system init
-        if torch.cuda.is_available():
-            device = 'cuda'
-        else:
-            device = 'cpu'
-
-        self.system = pw.System(self.model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
+        self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
 
         # load the pretrained model
         # TODO: we should uncomment the next line
