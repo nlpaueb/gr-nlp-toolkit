@@ -1,11 +1,12 @@
 import os
+from pathlib import Path
 from os.path import expanduser
 
 from gr_nlp_toolkit.data.downloader import Downloader
 
 
 class ProcessorCache:
-    def __init__(self, downloader : Downloader):
+    def __init__(self, downloader : Downloader, cache_path : str):
         """
         Initializes the cache of processors creating necessary directories
         :param downloader: an object with the Downloader interface
@@ -13,7 +14,7 @@ class ProcessorCache:
         # Get home directory
         self.home = expanduser("~")
         self.sep = os.sep
-        self.cache_path = self.home + self.sep + ".cache" + self.sep + "gr_nlp_toolkit"
+        self.cache_path = cache_path
         self.downloader = downloader
         # Initialize the filenames for each processor
         self.processor_names_to_filenames = {
@@ -24,11 +25,7 @@ class ProcessorCache:
         self.update_cache_path()
 
     def update_cache_path(self):
-        # Check if .cache and cache/gr_nlp_toolkit directories exist or else make them
-        if not os.path.exists(self.home + self.sep + ".cache"):
-            os.mkdir(self.home + self.sep + ".cache")
-        if not os.path.exists(self.cache_path):
-            os.mkdir(self.cache_path)
+        Path(self.cache_path).mkdir(parents=True, exist_ok=True)
 
     def get_processor_path(self, processor_name: str) -> str:
         # Update cache path in case any changes occured

@@ -20,7 +20,6 @@ class NER(AbstractProcessor):
     """
     NER class that takes a document and returns a document with ner fields set
     """
-
     def __init__(self, model_path=None, device='cpu', entities=18,):
 
         if entities == 18:

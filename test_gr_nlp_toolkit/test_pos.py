@@ -19,7 +19,28 @@ class MyTestCase(unittest.TestCase):
         tokenizer = Tokenizer()
         doc = tokenizer(Document('Ο ποιητής'))
 
-        pos = POS()
+        pos = POS(MyTestCase.bert_model)
+        self.assertIsNotNone(pos._model)
+        self.assertIsNotNone(pos.system)
+        doc = pos(doc)
+
+        tokens = doc.tokens
+        for token in tokens:
+            self.assertIsNotNone(token.upos)
+            self.assertTrue(token.upos in I2L_POS['upos'])
+
+            self.assertIsNotNone(token.feats)
+            self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
+
+            for feat, value in token.feats.items():
+                self.assertTrue(feat in properties_POS[token.upos])
+                self.assertTrue(value in I2L_POS[feat])
+
+    def test_pos_with_one_example_with_subwords(self):
+        tokenizer = Tokenizer()
+        doc = tokenizer(Document('ενα ποιηματακι'))
+
+        pos = POS(MyTestCase.bert_model)
         self.assertIsNotNone(pos._model)
         self.assertIsNotNone(pos.system)
         doc = pos(doc)

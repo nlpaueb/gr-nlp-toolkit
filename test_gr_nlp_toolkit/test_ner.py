@@ -43,7 +43,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_ner_with_value_exception(self):
         with self.assertRaises(ValueError):
-            NER(entities=2)
+            NER(MyTestCase.bert_model, entities=2)
 
 
 if __name__ == '__main__':

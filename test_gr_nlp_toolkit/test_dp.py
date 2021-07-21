@@ -32,7 +32,6 @@ class MyTestCase(unittest.TestCase):
         doc = tokenizer(Document('ενα ποιηματακι'))
 
         # bert model init
-
         dp = DP()
 
         self.assertIsNotNone(dp._model)
