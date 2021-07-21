@@ -56,13 +56,13 @@ def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tup
             tokenObj = Token([t])
             tokenObj.ids.append(i)
             tokens.append(tokenObj)
-            mask.append('0')
+            mask.append(True)
             word = word + 1
         else:
             # add sub-words to token
             tokenObj.subwords.append(t)
             tokenObj.ids.append(i)
-            mask.append('1')
+            mask.append(False)
         subword2word[j] = word
 
     # create text
@@ -93,7 +93,7 @@ class Tokenizer(AbstractProcessor):
         # create ids
         doc.input_ids = create_ids(doc.text)
         # create mask and tokens
-        doc.mask, doc.tokens, doc.subword2word = create_mask_and_tokens(convert_to_tokens(doc.input_ids),
+        doc.token_mask, doc.tokens, doc.subword2word = create_mask_and_tokens(convert_to_tokens(doc.input_ids),
                                                                         remove_special_tokens(doc.input_ids))
 
         # create dataloader
