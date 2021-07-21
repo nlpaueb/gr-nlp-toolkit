@@ -19,7 +19,7 @@ class MyTestCase(unittest.TestCase):
         tokenizer = Tokenizer()
         doc = tokenizer(Document('Ο ποιητής'))
 
-        pos = POS(MyTestCase.bert_model)
+        pos = POS()
         self.assertIsNotNone(pos._model)
         self.assertIsNotNone(pos.system)
         doc = pos(doc)
@@ -40,7 +40,7 @@ class MyTestCase(unittest.TestCase):
         tokenizer = Tokenizer()
         doc = tokenizer(Document('ενα ποιηματακι'))
 
-        pos = POS(MyTestCase.bert_model)
+        pos = POS()
         self.assertIsNotNone(pos._model)
         self.assertIsNotNone(pos.system)
         doc = pos(doc)

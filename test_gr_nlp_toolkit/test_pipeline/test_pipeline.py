@@ -12,12 +12,13 @@ class TestPipeline(unittest.TestCase):
         doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021")
 
         for token in doc.tokens:
+            print(token.text, token.ner, token.upos, token.feats, token.head, token.deprel)
             self.assertIsNotNone(token.ner)
             self.assertTrue(token.ner in I2L_IOBES_18)
             self.assertIsNotNone(token.head)
             self.assertIsNotNone(token.deprel)
             # We have to add plus one, because the cls token is removed
-            self.assertTrue(token.head in range(0, len(doc.tokens) +1))
+            self.assertTrue(token.head in range(0, len(doc.tokens) + 1))
             self.assertTrue(token.deprel in I2L_deprels)
             self.assertIsNotNone(token.upos)
             self.assertTrue(token.upos in I2L_POS['upos'])
@@ -43,12 +44,9 @@ class TestPipeline(unittest.TestCase):
             self.assertIsNone(token.upos)
             self.assertFalse(token.upos in I2L_POS['upos'])
 
-
             for feat, value in token.feats.items():
                 self.assertFalse(feat in properties_POS[token.upos])
                 self.assertFalse(value in I2L_POS[feat])
-
-
 
 
 if __name__ == '__main__':

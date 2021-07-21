@@ -3,6 +3,7 @@ import torch
 from torch import nn
 
 import pytorch_wrapper as pw
+from transformers import AutoModel
 
 from gr_nlp_toolkit.I2Ls.dp_I2Ls import I2L_deprels
 from gr_nlp_toolkit.document.document import Document
@@ -16,11 +17,13 @@ class DP(AbstractProcessor):
     DP class that takes a document and returns a document with tokens' head and deprels fields set
     """
 
-    def __init__(self, bert_model, model_path=None, device='cpu'):
+    def __init__(self, model_path=None, device='cpu'):
 
         self.I2L = I2L_deprels
         self.output_size = len(self.I2L)
 
+        # model init
+        bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
         self._model = DPModel(bert_model, self.I2L, 0)
 
         self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))

@@ -3,6 +3,7 @@ import torch
 from torch import nn
 
 import pytorch_wrapper as pw
+from transformers import AutoModel
 
 from gr_nlp_toolkit.document.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
@@ -17,12 +18,14 @@ class POS(AbstractProcessor):
     POS class that takes a document and returns a document with tokens' upos and feats fields set
     """
 
-    def __init__(self, bert_model, model_path=None, device='cpu'):
+    def __init__(self, model_path=None, device='cpu'):
 
         self.properties_POS = properties_POS
         self.feat_to_I2L = I2L_POS
         self.feat_to_size = {k: len(v) for k, v in self.feat_to_I2L.items()}
 
+        # model init
+        bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
         self._model = POSModel(bert_model, self.feat_to_size, 0)
 
         self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))

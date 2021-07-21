@@ -10,15 +10,12 @@ from gr_nlp_toolkit.I2Ls.dp_I2Ls import I2L_deprels
 
 
 class MyTestCase(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
 
     def test_dp_with_one_example(self):
         tokenizer = Tokenizer()
         doc = tokenizer(Document('Ο ποιητής'))
 
-        dp = DP(MyTestCase.bert_model)
+        dp = DP()
         self.assertIsNotNone(dp._model)
         self.assertIsNotNone(dp.system)
         doc = dp(doc)
@@ -36,7 +33,7 @@ class MyTestCase(unittest.TestCase):
 
         # bert model init
 
-        dp = DP(MyTestCase.bert_model)
+        dp = DP()
 
         self.assertIsNotNone(dp._model)
         self.assertIsNotNone(dp.system)
