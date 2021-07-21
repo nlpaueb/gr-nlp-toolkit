@@ -37,10 +37,10 @@ class Pipeline:
         for p in processors:
             if p == available_processors[0]:
                 ner_path = self._processor_cache.get_processor_path('ner')
-                self._processors.append(NER(bert_model, model_path=ner_path))
+                self._processors.append(NER(model_path=ner_path))
             elif p == available_processors[1]:
                 pos_path = self._processor_cache.get_processor_path('pos')
-                self._processors.append(POS(bert_model, model_path=pos_path))
+                self._processors.append(POS(model_path=pos_path))
             elif p == available_processors[2]:
                 dp_path = self._processor_cache.get_processor_path('dp')
                 self._processors.append(DP(model_path=dp_path))
