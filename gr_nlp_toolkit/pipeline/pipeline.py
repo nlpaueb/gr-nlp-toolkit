@@ -1,3 +1,5 @@
+from os.path import expanduser
+
 from transformers import AutoModel
 
 from gr_nlp_toolkit.data.downloader_gdrive import GDriveDownloader
@@ -8,6 +10,8 @@ from gr_nlp_toolkit.processors.ner import NER
 from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
+import os
+
 
 class Pipeline:
     """
@@ -16,7 +20,10 @@ class Pipeline:
     """
 
     def __init__(self, processors: str):
-        self._processor_cache = ProcessorCache(GDriveDownloader())
+        home = expanduser("~")
+        sep = os.sep
+        cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
+        self._processor_cache = ProcessorCache(GDriveDownloader() , cache_path)
 
         self._processors = []
         processors = set(processors.split(","))
