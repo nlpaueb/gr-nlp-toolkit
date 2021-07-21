@@ -3,6 +3,7 @@ import torch
 from torch import nn
 
 import pytorch_wrapper as pw
+from transformers import AutoModel
 
 from gr_nlp_toolkit.I2Ls.ner_I2Ls import I2L_IOBES_18, I2L_IOBES_4
 from gr_nlp_toolkit.document.document import Document
@@ -19,18 +20,16 @@ class NER(AbstractProcessor):
     """
     NER class that takes a document and returns a document with ner fields set
     """
-
-    def __init__(self, bert_model, model_path=None, device='cpu', entities=18,):
+    def __init__(self, model_path=None, device='cpu', entities=18,):
 
         if entities == 18:
             self.I2L = I2L_IOBES_18
             self.output_size = len(self.I2L)
-        elif entities == 4:
-            self.I2L = I2L_IOBES_4
-            self.output_size = len(self.I2L)
         else:
-            raise ValueError('Entities should be set to 18 or 4')
+            raise ValueError('Entities should be set to 18')
 
+        # model init
+        bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
         self._model = NERBERTModel(bert_model, self.output_size, **model_params)
 
         self.system = pw.System(self._model, last_activation=nn.Softmax(dim=-1), device=torch.device(device))
@@ -38,6 +37,7 @@ class NER(AbstractProcessor):
         # load the pretrained model
         if model_path != None:
             with open(model_path, 'rb') as f:
+                print("open")
                 self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:

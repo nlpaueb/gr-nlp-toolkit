@@ -11,16 +11,13 @@ from gr_nlp_toolkit.I2Ls.ner_I2Ls import I2L_IOBES_18
 
 class MyTestCase(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
-
     def test_ner_with_one_example(self):
         tokenizer = Tokenizer()
         doc = tokenizer(Document('Ο ποιητής'))
 
-        ner = NER(MyTestCase.bert_model)
+        ner = NER(entities=18)
 
+        self.assertEqual(69, ner.output_size)
         self.assertIsNotNone(ner._model)
         self.assertIsNotNone(ner.system)
         doc = ner(doc)
@@ -34,7 +31,7 @@ class MyTestCase(unittest.TestCase):
         tokenizer = Tokenizer()
         doc = tokenizer(Document('ενα ποιηματακι'))
 
-        ner = NER(MyTestCase.bert_model)
+        ner = NER()
         self.assertIsNotNone(ner._model)
         self.assertIsNotNone(ner.system)
         doc = ner(doc)
@@ -46,7 +43,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_ner_with_value_exception(self):
         with self.assertRaises(ValueError):
-            NER(MyTestCase.bert_model, entities=2)
+            NER(entities=2)
 
 
 if __name__ == '__main__':
