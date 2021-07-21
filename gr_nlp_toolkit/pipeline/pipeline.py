@@ -23,9 +23,7 @@ class Pipeline:
         available_processors = ['ner', 'pos', 'dp']
 
         # bert model init
-        blockPrint()
         bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
-        enablePrint()
 
         # Adding the tokenizer processor
         self._processors.append(Tokenizer())
