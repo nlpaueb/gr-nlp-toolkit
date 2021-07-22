@@ -47,10 +47,13 @@ class DP(AbstractProcessor):
         predictions_deprels = numpy.argmax(predictions_deprels['outputs'][0], axis=-1)
 
         # map predictions -> tokens, special tokens are not included
-        for mask, pred_head, pred_deprel, token in zip(doc.token_mask, predictions_heads[1: len(predictions_heads) - 1],
-                                                       predictions_deprels[1: len(predictions_deprels) - 1],
-                                                       doc.tokens):
+        i = 0
+        for mask, pred_head, pred_deprel in zip(doc.token_mask, predictions_heads[1: len(predictions_heads) - 1],
+                                                       predictions_deprels[1: len(predictions_deprels) - 1]):
             if mask:
+                token = doc.tokens[i]
                 token.head = doc.subword2word[pred_head]
                 token.deprel = self.I2L[pred_deprel]
+                i +=1
+
         return doc

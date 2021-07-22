@@ -45,16 +45,25 @@ class POS(AbstractProcessor):
 
         # set upos
         upos_predictions = predictions['upos']
-        for mask, pred, token in zip(doc.token_mask, upos_predictions[1: len(upos_predictions) - 1], doc.tokens):
+        i = 0
+        for mask, pred in zip(doc.token_mask, upos_predictions[1: len(upos_predictions) - 1]):
             if mask:
+                token = doc.tokens[i]
                 token.upos = self.feat_to_I2L['upos'][pred]
+                # Advance to the next word (not subtoken)
+                i+=1
 
         # set features
         for feat in self.feat_to_I2L.keys():
             if feat != 'upos':
                 current_predictions = predictions[feat]
-                for mask, pred, token in zip(doc.token_mask, current_predictions[1: len(current_predictions) - 1], doc.tokens):
-                    if mask and feat in self.properties_POS[token.upos]:
-                        token.feats[feat] = self.feat_to_I2L[feat][pred]
+                i = 0
+                for mask, pred in zip(doc.token_mask, current_predictions[1: len(current_predictions) - 1]):
+                    if mask:
+                        token = doc.tokens[i]
+                        if feat in self.properties_POS[token.upos]:
+                            token.feats[feat] = self.feat_to_I2L[feat][pred]
+                        # Advance to the next word (not subtoken)
+                        i += 1
 
         return doc
