@@ -33,6 +33,16 @@ class TestPipeline(unittest.TestCase):
                 for feat, value in token.feats.items():
                     self.assertTrue(feat in properties_POS[token.upos])
                     self.assertTrue(value in I2L_POS[feat])
+                    print(token.text, token.ner, token.upos, token.feats, token.head, token.deprel)
+                    self.assertIsNotNone(token.ner)
+                    self.assertTrue(token.ner in I2L_IOBES_18)
+                    self.assertIsNotNone(token.head)
+                    self.assertIsNotNone(token.deprel)
+                    # We have to add plus one, because the cls token is removed
+                    self.assertTrue(token.head in range(0, len(doc.tokens) + 1))
+                    self.assertTrue(token.deprel in I2L_deprels)
+                    self.assertIsNotNone(token.upos)
+                    self.assertTrue(token.upos in I2L_POS['upos'])
 
     def test_annotations_are_same_with_multiple_configurations(self):
         nlp = Pipeline('dp,pos,ner')
