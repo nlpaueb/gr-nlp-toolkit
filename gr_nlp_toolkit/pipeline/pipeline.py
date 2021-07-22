@@ -1,3 +1,5 @@
+from os.path import expanduser
+
 from transformers import AutoModel
 
 from gr_nlp_toolkit.data.downloader_gdrive import GDriveDownloader
@@ -8,6 +10,8 @@ from gr_nlp_toolkit.processors.ner import NER
 from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
+import os
+
 
 class Pipeline:
     """
@@ -16,7 +20,10 @@ class Pipeline:
     """
 
     def __init__(self, processors: str):
-        self._processor_cache = ProcessorCache(GDriveDownloader())
+        home = expanduser("~")
+        sep = os.sep
+        cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
+        self._processor_cache = ProcessorCache(GDriveDownloader() , cache_path)
 
         self._processors = []
         processors = set(processors.split(","))
@@ -30,13 +37,13 @@ class Pipeline:
         for p in processors:
             if p == available_processors[0]:
                 ner_path = self._processor_cache.get_processor_path('ner')
-                self._processors.append(NER(bert_model, model_path=ner_path))
+                self._processors.append(NER(model_path=ner_path))
             elif p == available_processors[1]:
                 pos_path = self._processor_cache.get_processor_path('pos')
-                self._processors.append(POS(bert_model, model_path=pos_path))
+                self._processors.append(POS(model_path=pos_path))
             elif p == available_processors[2]:
                 dp_path = self._processor_cache.get_processor_path('dp')
-                self._processors.append(DP(bert_model, model_path=dp_path))
+                self._processors.append(DP(model_path=dp_path))
             else:
                 raise Exception(f"Invalid processor name, please choose one of {available_processors}")
 

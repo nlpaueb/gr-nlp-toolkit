@@ -9,11 +9,10 @@ from gr_nlp_toolkit.data.processor_cache import ProcessorCache
 class TestProcessorCache(unittest.TestCase):
     def test_download_processors_sequentially(self):
 
-        home = os.path.expanduser("~")
         sep = os.sep
-        cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
+        cache_path = "./test"
         stub = DownloaderStub()
-        processor_cache = ProcessorCache(stub)
+        processor_cache = ProcessorCache(stub , cache_path)
         processor_cache.get_processor_path('ner')
         self.assertTrue(os.path.exists(cache_path + sep + "ner_processor"))
         processor_cache.get_processor_path('pos')
@@ -29,9 +28,9 @@ class TestProcessorCache(unittest.TestCase):
 
         home = os.path.expanduser("~")
         sep = os.sep
-        cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
+        cache_path = "./test"
         stub = DownloaderStub()
-        processor_cache = ProcessorCache(stub)
+        processor_cache = ProcessorCache(stub, cache_path)
         processor_cache.get_processor_path('ner')
         self.assertTrue(os.path.exists(cache_path + sep + "ner_processor"))
         os.remove(cache_path + sep + "ner_processor")
