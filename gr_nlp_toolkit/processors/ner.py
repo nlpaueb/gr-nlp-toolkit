@@ -37,7 +37,6 @@ class NER(AbstractProcessor):
         # load the pretrained model
         if model_path != None:
             with open(model_path, 'rb') as f:
-                print("open")
                 self.system.load_model_state(model_path)
 
     def __call__(self, doc: Document) -> Document:
