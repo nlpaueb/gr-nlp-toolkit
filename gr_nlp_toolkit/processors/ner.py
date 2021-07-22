@@ -45,8 +45,11 @@ class NER(AbstractProcessor):
         predictions = numpy.argmax(predictions['outputs'][0], axis=-1)
 
         # map predictions -> tokens, special tokens are not included
-        for mask, pred, token in zip(doc.token_mask, predictions[1: len(predictions) - 1], doc.tokens):
+        i = 0
+        for mask, pred in zip(doc.token_mask, predictions[1: len(predictions) - 1]):
             if mask:
+                token = doc.tokens[i]
                 token.ner = self.I2L[pred]
+                i+=1
 
         return doc
