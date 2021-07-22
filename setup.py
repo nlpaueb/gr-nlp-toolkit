@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gr-nlp-toolkit",
-    version="0.0.4",
+    version="0.0.2",
     author="nlpaueb",
     author_email="p3170148@aueb.gr, p3170039@aueb.gr",
     description="A Transformer-based Natural Language Processing Pipeline for Greek",
