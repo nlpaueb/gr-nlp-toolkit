@@ -24,4 +24,11 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(where=".", exclude="./test_gr_nlp_toolkit"),
     python_requires=">=3.6",
+    install_requires=[
+         'torch>=1.9.0'
+         'numpy>=1.21.0'
+         'pytorch_wrapper>=1.1.0'
+         'transformers>=4.8.2'
+         'gdown>=3.13.0'
+    ]
 )
