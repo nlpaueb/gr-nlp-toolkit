@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gr-nlp-toolkit",
-    version="0.0.2",
+    version="0.0.3",
     author="nlpaueb",
     author_email="p3170148@aueb.gr, p3170039@aueb.gr",
     description="A Transformer-based Natural Language Processing Pipeline for Greek",
@@ -24,4 +24,11 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(where=".", exclude="./test_gr_nlp_toolkit"),
     python_requires=">=3.6",
+    install_requires=[
+         'torch',
+         'numpy',
+         'pytorch_wrapper',
+         'transformers',
+         'gdown',
+    ]
 )
