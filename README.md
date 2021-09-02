@@ -6,6 +6,26 @@ and offers predictions
 for Named Entity Recognition, Part-of-Speech tagging, Morphological Tagging
 as well as Dependency Parsing.
 
+### Performance Comparison
+
+We compared our toolkit's accuracy to Stanza on the Greek test corpus of Universal Dependencies. (20 sentences were 
+excluded because there were tokenization mismatches)
+
+Dependency Parsing Results:
+
+| Metric      | Stanza | gr-nlp-toolkit |
+| ----------- | ----------- | -----------| 
+| UAS      | 0.91       | 0.94|
+| LAS   | 0.88       | 0.92|
+
+Part-of-Speech tagging results
+
+| Metric      | Stanza | gr-nlp-toolkit |
+| ----------- | ----------- | -----------| 
+| micro-f1      | 0.98       | 0.98|
+| macro-f1   | 0.96       | 0.97|
+
+
 ## Installation
 
 You can install the toolkit by executing the following in the command line:
@@ -36,7 +56,7 @@ your home directory so you will not have to download them again.
 After creating the pipeline you can annotate a text by calling the pipeline's `__call__` method.
 
 ```python
-doc = nlp('Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021')
+doc = nlp('Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro 2020')
 ```
 A `Document` object is then created and is annotated. The original text is tokenized 
 and split to tokens

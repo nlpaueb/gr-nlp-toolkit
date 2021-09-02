@@ -1,6 +1,6 @@
 import unittest
 
-from gr_nlp_toolkit.token.token import Token
+from gr_nlp_toolkit.domain.token import Token
 
 
 class MyTestCase(unittest.TestCase):

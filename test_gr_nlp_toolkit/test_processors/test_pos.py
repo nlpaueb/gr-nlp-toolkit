@@ -2,7 +2,7 @@ import unittest
 
 from transformers import AutoModel
 
-from gr_nlp_toolkit.document.document import Document
+from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 from gr_nlp_toolkit.I2Ls.pos_I2Ls import I2L_POS, properties_POS

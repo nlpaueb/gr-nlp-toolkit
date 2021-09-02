@@ -1,3 +1,5 @@
+# This is a dict where each entry contains an Index to label (I2L) for a morphological feature, or the I2L for the UPOS tag if the key
+# is 'upos'
 properties_POS = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
  'ADP': ['Number', 'Gender', 'Case'],
  'ADV': ['Degree', 'Abbr'],

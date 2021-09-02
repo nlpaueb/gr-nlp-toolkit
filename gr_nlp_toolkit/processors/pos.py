@@ -5,12 +5,12 @@ from torch import nn
 import pytorch_wrapper as pw
 from transformers import AutoModel
 
-from gr_nlp_toolkit.document.document import Document
+from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 from gr_nlp_toolkit.I2Ls.pos_I2Ls import I2L_POS, properties_POS
 
 
-from gr_nlp_toolkit.processors.pos_model import POSModel
+from gr_nlp_toolkit.models.pos_model import POSModel
 
 
 class POS(AbstractProcessor):

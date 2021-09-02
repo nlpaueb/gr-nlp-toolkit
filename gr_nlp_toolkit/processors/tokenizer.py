@@ -1,13 +1,13 @@
 from typing import List, Tuple, Dict
 from torch.utils.data import DataLoader, Dataset
 
-from gr_nlp_toolkit.document.dataset import DatasetImpl
-from gr_nlp_toolkit.document.document import Document
+from gr_nlp_toolkit.domain.dataset import DatasetImpl
+from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
 import unicodedata
 
-from gr_nlp_toolkit.token.token import Token
+from gr_nlp_toolkit.domain.token import Token
 
 from transformers import AutoTokenizer
 

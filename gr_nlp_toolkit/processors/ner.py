@@ -5,12 +5,12 @@ from torch import nn
 import pytorch_wrapper as pw
 from transformers import AutoModel
 
-from gr_nlp_toolkit.I2Ls.ner_I2Ls import I2L_IOBES_18, I2L_IOBES_4
-from gr_nlp_toolkit.document.document import Document
+from gr_nlp_toolkit.I2Ls.ner_I2Ls import I2L_IOBES_18
+from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
 
-from gr_nlp_toolkit.processors.ner_model import NERBERTModel
+from gr_nlp_toolkit.models.ner_model import NERBERTModel
 
 
 model_params = {'dp': 0}
