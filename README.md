@@ -48,8 +48,7 @@ nlp = Pipeline("pos,ner,dp") # Use ner,pos,dp processors
 # nlp = Pipeline("ner,dp") # Use only ner and dp processors
 ```
 
-The first time you use a processor, that processors data files are cached in the .cache folder of 
-your home directory so you will not have to download them again.
+The first time you use a processor, the data files of that processor are cached in the .cache folder of your home directory, so that you will not have to download them again.
 
 ## Generating the annotations
 
