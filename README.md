@@ -48,7 +48,7 @@ nlp = Pipeline("pos,ner,dp") # Use ner,pos,dp processors
 # nlp = Pipeline("ner,dp") # Use only ner and dp processors
 ```
 
-The first time you use a processor, the data files of that processor are cached in the .cache folder of your home directory, so that you will not have to download them again.
+The first time you use a processor, the data files of that processor are cached in the .cache folder of your home directory, so that you will not have to download them again. Each processor is about 500 MB in size, so the maximum download size can be up to 1.5 GB.
 
 ## Generating the annotations
 
