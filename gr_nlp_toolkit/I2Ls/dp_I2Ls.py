@@ -1,3 +1,4 @@
+# This the Index to Label for the dependency relations output of the dp model. A string label can be obtained by an output index
 I2L_deprels = \
 ['obl',
  'obj',

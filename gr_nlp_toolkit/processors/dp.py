@@ -6,10 +6,10 @@ import pytorch_wrapper as pw
 from transformers import AutoModel
 
 from gr_nlp_toolkit.I2Ls.dp_I2Ls import I2L_deprels
-from gr_nlp_toolkit.document.document import Document
+from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
-from gr_nlp_toolkit.processors.dp_model import DPModel
+from gr_nlp_toolkit.models.dp_model import DPModel
 
 
 class DP(AbstractProcessor):

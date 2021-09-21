@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from gr_nlp_toolkit.document.document import Document
+from gr_nlp_toolkit.domain.document import Document
 
 
 class AbstractProcessor(ABC):
