@@ -29,8 +29,8 @@ pos_properties = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
           'VerbForm',
           'Voice',
           'Case'],
-                  'X': ['Foreign'],
-                  '_': []}
+  'X': ['Foreign'],
+  '_': []}
 
 # The labels for the named entity output of the ner model.
 # A string label can be obtained by an output index
