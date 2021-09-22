@@ -9,7 +9,9 @@ class Token:
     def __init__(self, subwords: List[str]):
         """
             Create a Token object setting possible parameters other than the text as None
-            @:param: text: The text of the token
+
+            Keyword arguments:
+            subwords: A list with the token's subwords
         """
 
         # the text
@@ -39,6 +41,9 @@ class Token:
 
     @property
     def text(self):
+        """
+        The text
+        """
         return self._text
 
     @text.setter
@@ -47,6 +52,9 @@ class Token:
 
     @property
     def subwords(self):
+        """
+        A list with Token's subwords
+        """
         return self._subwords
 
     @subwords.setter
@@ -63,6 +71,9 @@ class Token:
 
     @property
     def ner(self):
+        """
+        The Named Entity
+        """
         return self._ner
 
     @ner.setter
@@ -71,6 +82,9 @@ class Token:
 
     @property
     def upos(self):
+        """
+        The universal pos tag
+        """
         return self._upos
 
     @upos.setter
@@ -79,6 +93,9 @@ class Token:
 
     @property
     def feats(self):
+        """
+        The universal morphological features
+        """
         return self._feats
 
     @feats.setter
@@ -87,6 +104,9 @@ class Token:
 
     @property
     def head(self):
+        """
+        The dependant word index in the sentence
+        """
         return self._head
 
     @head.setter
@@ -95,6 +115,9 @@ class Token:
 
     @property
     def deprel(self):
+        """
+        The label of the relation between the specific word and the dependant one
+        """
         return self._deprel
 
     @deprel.setter

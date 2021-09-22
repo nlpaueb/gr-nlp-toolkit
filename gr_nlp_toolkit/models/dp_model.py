@@ -27,10 +27,10 @@ class DPModel(nn.Module):
         self.arc_bias = nn.Parameter(torch.zeros(1, 768, 1))
         self.rel_bias = nn.Parameter(torch.zeros(1, 1, 1, self.numrels))
 
-        # todo initialization
-        self.u_rel = nn.Parameter(torch.zeros(1,768, self.numrels * 768))
 
-        self.w_arc = nn.Parameter(torch.zeros(1,768, 768))
+        self.u_rel = nn.Parameter(torch.zeros(1, 768, self.numrels * 768))
+
+        self.w_arc = nn.Parameter(torch.zeros(1, 768, 768))
         self.w_rel_head = nn.Parameter(torch.zeros(1, 1, 768, self.numrels))
         self.w_rel_dep = nn.Parameter(torch.zeros(1, 1, 768, self.numrels))
 
