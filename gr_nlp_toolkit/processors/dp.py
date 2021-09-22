@@ -5,7 +5,7 @@ from torch import nn
 import pytorch_wrapper as pw
 from transformers import AutoModel
 
-from gr_nlp_toolkit.I2Ls.dp_I2Ls import I2L_deprels
+from gr_nlp_toolkit.labels.dp_I2Ls import labels_deprels
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
@@ -19,7 +19,7 @@ class DP(AbstractProcessor):
 
     def __init__(self, model_path=None, device='cpu'):
 
-        self.I2L = I2L_deprels
+        self.I2L = labels_deprels
         self.output_size = len(self.I2L)
 
         # model init

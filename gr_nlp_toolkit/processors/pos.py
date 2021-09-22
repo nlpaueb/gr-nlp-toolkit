@@ -7,7 +7,7 @@ from transformers import AutoModel
 
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
-from gr_nlp_toolkit.I2Ls.pos_I2Ls import I2L_POS, properties_POS
+from gr_nlp_toolkit.labels.pos_I2Ls import labels_POS, properties_POS
 
 
 from gr_nlp_toolkit.models.pos_model import POSModel
@@ -21,7 +21,7 @@ class POS(AbstractProcessor):
     def __init__(self, model_path=None, device='cpu'):
 
         self.properties_POS = properties_POS
-        self.feat_to_I2L = I2L_POS
+        self.feat_to_I2L = labels_POS
         self.feat_to_size = {k: len(v) for k, v in self.feat_to_I2L.items()}
 
         # model init

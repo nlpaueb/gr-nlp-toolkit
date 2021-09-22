@@ -1,8 +1,8 @@
 import unittest
 
-from gr_nlp_toolkit.I2Ls.dp_I2Ls import I2L_deprels
-from gr_nlp_toolkit.I2Ls.ner_I2Ls import I2L_IOBES_18
-from gr_nlp_toolkit.I2Ls.pos_I2Ls import I2L_POS, properties_POS
+from gr_nlp_toolkit.labels.dp_I2Ls import labels_deprels
+from gr_nlp_toolkit.labels.ner_I2Ls import labels_IOBES_18
+from gr_nlp_toolkit.labels.pos_I2Ls import labels_POS, properties_POS
 from gr_nlp_toolkit.pipeline.pipeline import Pipeline
 
 
@@ -18,31 +18,31 @@ class TestPipeline(unittest.TestCase):
             for token in doc.tokens:
                 print(token.text, token.ner, token.upos, token.feats, token.head, token.deprel)
                 self.assertIsNotNone(token.ner)
-                self.assertTrue(token.ner in I2L_IOBES_18)
+                self.assertTrue(token.ner in labels_IOBES_18)
                 self.assertIsNotNone(token.head)
                 self.assertIsNotNone(token.deprel)
                 # We have to add plus one, because the cls token is removed
                 self.assertTrue(token.head in range(0, len(doc.tokens) + 1))
-                self.assertTrue(token.deprel in I2L_deprels)
+                self.assertTrue(token.deprel in labels_deprels)
                 self.assertIsNotNone(token.upos)
-                self.assertTrue(token.upos in I2L_POS['upos'])
+                self.assertTrue(token.upos in labels_POS['upos'])
 
                 self.assertIsNotNone(token.feats)
                 self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
 
                 for feat, value in token.feats.items():
                     self.assertTrue(feat in properties_POS[token.upos])
-                    self.assertTrue(value in I2L_POS[feat])
+                    self.assertTrue(value in labels_POS[feat])
                     print(token.text, token.ner, token.upos, token.feats, token.head, token.deprel)
                     self.assertIsNotNone(token.ner)
-                    self.assertTrue(token.ner in I2L_IOBES_18)
+                    self.assertTrue(token.ner in labels_IOBES_18)
                     self.assertIsNotNone(token.head)
                     self.assertIsNotNone(token.deprel)
                     # We have to add plus one, because the cls token is removed
                     self.assertTrue(token.head in range(0, len(doc.tokens) + 1))
-                    self.assertTrue(token.deprel in I2L_deprels)
+                    self.assertTrue(token.deprel in labels_deprels)
                     self.assertIsNotNone(token.upos)
-                    self.assertTrue(token.upos in I2L_POS['upos'])
+                    self.assertTrue(token.upos in labels_POS['upos'])
 
     def test_annotations_are_same_with_multiple_configurations(self):
         nlp = Pipeline('dp,pos,ner')
@@ -88,17 +88,17 @@ class TestPipeline(unittest.TestCase):
 
         for token in doc.tokens:
             self.assertIsNotNone(token.ner)
-            self.assertTrue(token.ner in I2L_IOBES_18)
+            self.assertTrue(token.ner in labels_IOBES_18)
             self.assertIsNone(token.head)
             self.assertIsNone(token.deprel)
             self.assertFalse(token.head in range(0, len(doc.tokens)))
-            self.assertFalse(token.deprel in I2L_deprels)
+            self.assertFalse(token.deprel in labels_deprels)
             self.assertIsNone(token.upos)
-            self.assertFalse(token.upos in I2L_POS['upos'])
+            self.assertFalse(token.upos in labels_POS['upos'])
 
             for feat, value in token.feats.items():
                 self.assertFalse(feat in properties_POS[token.upos])
-                self.assertFalse(value in I2L_POS[feat])
+                self.assertFalse(value in labels_POS[feat])
 
 
 if __name__ == '__main__':
