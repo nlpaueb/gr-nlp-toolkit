@@ -6,7 +6,7 @@ from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.dp import DP
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
-from gr_nlp_toolkit.labels.dp_I2Ls import labels_deprels
+from gr_nlp_toolkit.labels.dp_labels import dp_labels
 
 
 class MyTestCase(unittest.TestCase):
@@ -25,7 +25,7 @@ class MyTestCase(unittest.TestCase):
             self.assertIsNotNone(token.head)
             self.assertIsNotNone(token.deprel)
             self.assertTrue(token.head in range(0, len(tokens)))
-            self.assertTrue(token.deprel in labels_deprels)
+            self.assertTrue(token.deprel in dp_labels)
 
     def test_dp_with_one_example_with_subwords(self):
         tokenizer = Tokenizer()
@@ -43,4 +43,4 @@ class MyTestCase(unittest.TestCase):
             self.assertIsNotNone(token.head)
             self.assertIsNotNone(token.deprel)
             self.assertTrue(token.head in range(0, len(tokens)))
-            self.assertTrue(token.deprel in labels_deprels)
+            self.assertTrue(token.deprel in dp_labels)
