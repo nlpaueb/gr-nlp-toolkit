@@ -29,9 +29,6 @@ class Pipeline:
         processors = set(processors.split(","))
         available_processors = ['ner', 'pos', 'dp']
 
-        # bert model init
-        bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
-
         # Adding the tokenizer processor
         self._processors.append(Tokenizer())
         for p in processors:
