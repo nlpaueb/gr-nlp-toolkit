@@ -55,7 +55,7 @@ class Pipeline:
         Annotate a text
 
         Keyword arguments:
-        param text: A string containing the text to be annotated
+        param text: A string or a list of strings containing the text to be annotated
         return: A Document object containing the annotations
         """
 
