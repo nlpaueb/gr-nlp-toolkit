@@ -11,6 +11,7 @@ class POSModel(nn.Module):
         :param dp: the drop out probability
         :param feat_to_size: a dict mapping from a string feature to an int ( the number of outputs for the feature)
         """
+
         super(POSModel, self).__init__()
         self._bert_model = bert_model
         self._dp = nn.Dropout(dp)

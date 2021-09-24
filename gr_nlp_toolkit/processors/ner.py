@@ -5,7 +5,7 @@ from torch import nn
 import pytorch_wrapper as pw
 from transformers import AutoModel
 
-from gr_nlp_toolkit.I2Ls.ner_I2Ls import I2L_IOBES_18
+from gr_nlp_toolkit.labels.ner_labels import ner_labels
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
@@ -23,7 +23,7 @@ class NER(AbstractProcessor):
     def __init__(self, model_path=None, device='cpu', entities=18,):
 
         if entities == 18:
-            self.I2L = I2L_IOBES_18
+            self.I2L = ner_labels
             self.output_size = len(self.I2L)
         else:
             raise ValueError('Entities should be set to 18')

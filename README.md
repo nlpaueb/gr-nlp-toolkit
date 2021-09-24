@@ -1,10 +1,10 @@
 # gr-nlp-toolkit
 
-A Transformer-based Natural Language
-Processing Pipeline for Greek. This toolkit has state-of-the art accuracies in Greek
-and offers predictions 
-for Named Entity Recognition, Part-of-Speech tagging, Morphological Tagging
-as well as Dependency Parsing.
+A Transformer-based natural language processing toolkit for (modern) Greek. The toolkit has state-of-the art performance in Greek and supports named entity recognition, part-of-speech tagging, morphological tagging, as well as dependency parsing. For more information, please consult the following theses:
+
+C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf
+
+N. Smyrnioudis, "A Transformer-based natural language processing toolkit for Greek -- Named entity recognition and multi-task learning", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf
 
 ### Performance Comparison
 
@@ -48,8 +48,7 @@ nlp = Pipeline("pos,ner,dp") # Use ner,pos,dp processors
 # nlp = Pipeline("ner,dp") # Use only ner and dp processors
 ```
 
-The first time you use a processor, that processors data files are cached in the .cache folder of 
-your home directory so you will not have to download them again.
+The first time you use a processor, the data files of that processor are cached in the .cache folder of your home directory, so that you will not have to download them again. Each processor is about 500 MB in size, so the maximum download size can be up to 1.5 GB.
 
 ## Generating the annotations
 

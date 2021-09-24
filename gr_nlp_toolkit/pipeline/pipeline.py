@@ -20,6 +20,12 @@ class Pipeline:
     """
 
     def __init__(self, processors: str):
+        """ Load the processors
+
+           Keyword arguments:
+            processors: A list with the names of the processors you want to load, available values: 'ner', 'por', 'dp'
+        """
+
         home = expanduser("~")
         sep = os.sep
         cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
@@ -28,9 +34,6 @@ class Pipeline:
         self._processors = []
         processors = set(processors.split(","))
         available_processors = ['ner', 'pos', 'dp']
-
-        # bert model init
-        bert_model = AutoModel.from_pretrained('nlpaueb/bert-base-greek-uncased-v1')
 
         # Adding the tokenizer processor
         self._processors.append(Tokenizer())
@@ -50,9 +53,12 @@ class Pipeline:
     def __call__(self, text: str) -> Document:
         """
         Annotate a text
-        :param text: A string containing the text to be annotated
-        :return: A Document object containing the annotations
+
+        Keyword arguments:
+        param text: A string or a list of strings containing the text to be annotated
+        return: A Document object containing the annotations
         """
+
         # Create a document from the text
         self._doc = Document(text)
 

@@ -5,7 +5,7 @@ from transformers import AutoModel
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
-from gr_nlp_toolkit.I2Ls.pos_I2Ls import I2L_POS, properties_POS
+from gr_nlp_toolkit.labels.pos_labels import pos_labels, pos_properties
 
 
 class MyTestCase(unittest.TestCase):
@@ -27,14 +27,14 @@ class MyTestCase(unittest.TestCase):
         tokens = doc.tokens
         for token in tokens:
             self.assertIsNotNone(token.upos)
-            self.assertTrue(token.upos in I2L_POS['upos'])
+            self.assertTrue(token.upos in pos_labels['upos'])
 
             self.assertIsNotNone(token.feats)
-            self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
+            self.assertEqual(len(list(token.feats.keys())), len(pos_properties[token.upos]))
 
             for feat, value in token.feats.items():
-                self.assertTrue(feat in properties_POS[token.upos])
-                self.assertTrue(value in I2L_POS[feat])
+                self.assertTrue(feat in pos_properties[token.upos])
+                self.assertTrue(value in pos_labels[feat])
 
     def test_pos_with_one_example_with_subwords(self):
         tokenizer = Tokenizer()
@@ -48,14 +48,14 @@ class MyTestCase(unittest.TestCase):
         tokens = doc.tokens
         for token in tokens:
             self.assertIsNotNone(token.upos)
-            self.assertTrue(token.upos in I2L_POS['upos'])
+            self.assertTrue(token.upos in pos_labels['upos'])
 
             self.assertIsNotNone(token.feats)
-            self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
+            self.assertEqual(len(list(token.feats.keys())), len(pos_properties[token.upos]))
 
             for feat, value in token.feats.items():
-                self.assertTrue(feat in properties_POS[token.upos])
-                self.assertTrue(value in I2L_POS[feat])
+                self.assertTrue(feat in pos_properties[token.upos])
+                self.assertTrue(value in pos_labels[feat])
 
     def test_pos_with_one_example_with_subwords(self):
         tokenizer = Tokenizer()
@@ -69,14 +69,14 @@ class MyTestCase(unittest.TestCase):
         tokens = doc.tokens
         for token in tokens:
             self.assertIsNotNone(token.upos)
-            self.assertTrue(token.upos in I2L_POS['upos'])
+            self.assertTrue(token.upos in pos_labels['upos'])
 
             self.assertIsNotNone(token.feats)
-            self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
+            self.assertEqual(len(list(token.feats.keys())), len(pos_properties[token.upos]))
 
             for feat, value in token.feats.items():
-                self.assertTrue(feat in properties_POS[token.upos])
-                self.assertTrue(value in I2L_POS[feat])
+                self.assertTrue(feat in pos_properties[token.upos])
+                self.assertTrue(value in pos_labels[feat])
 
     def test_pos_with_one_example_with_subwords(self):
         tokenizer = Tokenizer()
@@ -90,14 +90,14 @@ class MyTestCase(unittest.TestCase):
         tokens = doc.tokens
         for token in tokens:
             self.assertIsNotNone(token.upos)
-            self.assertTrue(token.upos in I2L_POS['upos'])
+            self.assertTrue(token.upos in pos_labels['upos'])
 
             self.assertIsNotNone(token.feats)
-            self.assertEqual(len(list(token.feats.keys())), len(properties_POS[token.upos]))
+            self.assertEqual(len(list(token.feats.keys())), len(pos_properties[token.upos]))
 
             for feat, value in token.feats.items():
-                self.assertTrue(feat in properties_POS[token.upos])
-                self.assertTrue(value in I2L_POS[feat])
+                self.assertTrue(feat in pos_properties[token.upos])
+                self.assertTrue(value in pos_labels[feat])
 
 
 if __name__ == '__main__':

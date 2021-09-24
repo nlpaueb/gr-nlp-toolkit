@@ -1,6 +1,6 @@
-# This is a dict where each entry contains an Index to label (I2L) for a morphological feature, or the I2L for the UPOS tag if the key
-# is 'upos'
-properties_POS = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
+# This is a dict where each entry contains an label for a morphological feature,
+# or the label for the UPOS tag if the key is 'upos'
+pos_properties = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
  'ADP': ['Number', 'Gender', 'Case'],
  'ADV': ['Degree', 'Abbr'],
  'AUX': ['Mood',
@@ -11,16 +11,16 @@ properties_POS = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
          'VerbForm',
          'Voice'],
  'CCONJ': [],
- 'DET': ['Number', 'Gender', 'PronType', 'Definite', 'Case'],
- 'NOUN': ['Number', 'Gender', 'Abbr', 'Case'],
- 'NUM': ['NumType', 'Number', 'Gender', 'Case'],
- 'PART': [],
- 'PRON': ['Number', 'Gender', 'Person', 'Poss', 'PronType', 'Case'],
- 'PROPN': ['Number', 'Gender', 'Case'],
- 'PUNCT': [],
- 'SCONJ': [],
- 'SYM': [],
- 'VERB': ['Mood',
+  'DET': ['Number', 'Gender', 'PronType', 'Definite', 'Case'],
+  'NOUN': ['Number', 'Gender', 'Abbr', 'Case'],
+  'NUM': ['NumType', 'Number', 'Gender', 'Case'],
+  'PART': [],
+  'PRON': ['Number', 'Gender', 'Person', 'Poss', 'PronType', 'Case'],
+  'PROPN': ['Number', 'Gender', 'Case'],
+  'PUNCT': [],
+  'SCONJ': [],
+  'SYM': [],
+  'VERB': ['Mood',
           'Aspect',
           'Tense',
           'Number',
@@ -29,11 +29,12 @@ properties_POS = {'ADJ': ['Degree', 'Number', 'Gender', 'Case'],
           'VerbForm',
           'Voice',
           'Case'],
- 'X': ['Foreign'],
- '_': []}
+  'X': ['Foreign'],
+  '_': []}
 
-
-I2L_POS = {'Abbr': ['_', 'Yes'],
+# The labels for the named entity output of the ner model.
+# A string label can be obtained by an output index
+pos_labels = {'Abbr': ['_', 'Yes'],
  'Aspect': ['Perf', '_', 'Imp'],
  'Case': ['Dat', '_', 'Acc', 'Gen', 'Nom', 'Voc'],
  'Definite': ['Ind', 'Def', '_'],

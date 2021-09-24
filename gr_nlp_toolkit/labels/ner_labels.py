@@ -1,5 +1,6 @@
-# This the Index to Label for the dependency relations output of the ner model. A string label can be obtained by an output index
-I2L_IOBES_18 = ['O',
+# The labels for the output of the ner model.
+# A string label can be obtained by an output index
+ner_labels = ['O',
            'S-GPE',
            'S-ORG',
            'S-CARDINAL',
@@ -68,21 +69,3 @@ I2L_IOBES_18 = ['O',
            'B-ORDINAL',
            'I-ORDINAL',
            'E-ORDINAL']
-
-I2L_IOBES_4 = ['O',
- 'S-LOC',
- 'S-ORG',
- 'B-ORG',
- 'E-ORG',
- 'S-MISC',
- 'B-LOC',
- 'E-LOC',
- 'I-ORG',
- 'S-PERSON',
- 'B-PERSON',
- 'I-PERSON',
- 'E-PERSON',
- 'B-MISC',
- 'I-MISC',
- 'E-MISC',
- 'I-LOC']
