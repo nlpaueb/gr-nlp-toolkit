@@ -6,26 +6,6 @@ C. Dikonimaki, "A Transformer-based natural language processing toolkit for Gree
 
 N. Smyrnioudis, "A Transformer-based natural language processing toolkit for Greek -- Named entity recognition and multi-task learning", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf
 
-### Performance Comparison
-
-We compared our toolkit's accuracy to Stanza on the Greek test corpus of Universal Dependencies. (20 sentences were 
-excluded because there were tokenization mismatches)
-
-Dependency Parsing Results:
-
-| Metric      | Stanza | gr-nlp-toolkit |
-| ----------- | ----------- | -----------| 
-| UAS      | 0.91       | 0.94|
-| LAS   | 0.88       | 0.92|
-
-Part-of-Speech tagging results
-
-| Metric      | Stanza | gr-nlp-toolkit |
-| ----------- | ----------- | -----------| 
-| micro-f1      | 0.98       | 0.98|
-| macro-f1   | 0.96       | 0.97|
-
-
 ## Installation
 
 You can install the toolkit by executing the following in the command line:
