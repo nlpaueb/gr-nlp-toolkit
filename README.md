@@ -63,3 +63,13 @@ and `token.head` and `token.deprel` are set by the `dp` processor.
 A small detail is that to get the `Token` object that is the head of another token you need to access
 `doc.tokens[head-1]`. The reason for this is that the enumeration of the tokens starts from 1 and when the
 field `token.head` is set to 0, that means the token is the root of the word.
+
+## Alternative download methods for the toolkit models
+
+Currently the models are served in a Google Drive folder. In case they become unavailable from that source, the models can be found via archive.org at the following links:
+
+- Dependency Parsing model: https://archive.org/details/toolkit-dp
+- Named Entity Recognition model: https://archive.org/details/toolkit-ner
+- Part-of-Speech and morphological tagging model: https://archive.org/details/toolkit-pos
+
+The toolkit currently cannot download the models from these sources, but if you have downloaded the toolkit models via an alternative source you can place the files with their names in the `.cache/gr_nlp_toolkit/` directory of your home folder (`~/.cache/gr_nlp_toolkit` in Linux systems). Be sure to name the Dependency Parsing model file as `toolkit-dp`, the Named Entity Recognition model file as `toolkit-ner` and the Part-of-Speech and morphological tagging model file as `toolkit-pos`. This way, the toolkit will not download any models from the Internet and will use the local ones instead.
