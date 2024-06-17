@@ -8,6 +8,8 @@ from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.dp import DP
 from gr_nlp_toolkit.processors.ner import NER
 from gr_nlp_toolkit.processors.pos import POS
+from gr_nlp_toolkit.processors.g2g import G2G
+
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
 import os
@@ -33,8 +35,18 @@ class Pipeline:
 
         self._processors = []
         processors = set(processors.split(","))
-        available_processors = ['ner', 'pos', 'dp']
+        available_processors = ['ner', 'pos', 'dp', 'g2g_lstm', 'g2g_transformer']
 
+
+        # Adding the g2g processor, which must be the first in the pipeline
+        if("g2g_lstm" in processors):
+            self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl"))
+            processors.remove("g2g_lstm")
+        elif("g2g_transformer" in processors):
+            self._processors.append(G2G(mode="transformer", model_path="gr_nlp_toolkit/tmp/ByT5_small_10000_samples_v2"))
+            processors.remove("g2g_transformer")
+
+            
         # Adding the tokenizer processor
         self._processors.append(Tokenizer())
         for p in processors:
@@ -51,6 +63,7 @@ class Pipeline:
                 raise Exception(f"Invalid processor name, please choose one of {available_processors}")
 
     def __call__(self, text: str) -> Document:
+        
         """
         Annotate a text
 
@@ -64,6 +77,16 @@ class Pipeline:
 
         # Pass the document through every processor
         for processor in self._processors:
+            # print(processor)
             processor(self._doc)
 
         return self._doc
+    
+if __name__ == "__main__": 
+
+    nlp = Pipeline("g2g_transformer")
+
+    doc = nlp("o Volos kai h Larisa einai poleis ths thessalias")
+    print(doc.text)
+    # for token in doc.tokens:
+    #     print(token.text, " ", token.ner)

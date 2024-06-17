@@ -5,7 +5,7 @@ from torch import nn
 import pytorch_wrapper as pw
 from transformers import AutoModel
 
-from gr_nlp_toolkit.labels.dp_labels import dp_labels
+from gr_nlp_toolkit.configs.dp_labels import dp_labels
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 

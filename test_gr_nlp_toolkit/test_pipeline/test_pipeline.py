@@ -1,8 +1,8 @@
 import unittest
 
-from gr_nlp_toolkit.labels.dp_labels import dp_labels
-from gr_nlp_toolkit.labels.ner_labels import ner_labels
-from gr_nlp_toolkit.labels.pos_labels import pos_labels, pos_properties
+from gr_nlp_toolkit.configs.dp_labels import dp_labels
+from gr_nlp_toolkit.configs.ner_labels import ner_labels
+from gr_nlp_toolkit.configs.pos_labels import pos_labels, pos_properties
 from gr_nlp_toolkit.pipeline.pipeline import Pipeline
 
 

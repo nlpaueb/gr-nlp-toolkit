@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm
 .idea
+
+# Temporary files
+gr_nlp_toolkit/tmp/

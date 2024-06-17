@@ -40,6 +40,7 @@ def remove_special_tokens(input_ids: List[int]) -> List[int]:
     return input_ids_without_special_tokens
 
 
+
 def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tuple[List[str], List[Token], Dict]:
     mask = []
     tokens = []
@@ -59,6 +60,7 @@ def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tup
             mask.append(True)
             word = word + 1
         else:
+
             # add sub-words to token
             tokenObj.subwords.append(t)
             tokenObj.ids.append(i)

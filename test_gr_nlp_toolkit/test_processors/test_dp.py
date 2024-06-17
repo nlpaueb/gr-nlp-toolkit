@@ -6,7 +6,7 @@ from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.dp import DP
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
-from gr_nlp_toolkit.labels.dp_labels import dp_labels
+from gr_nlp_toolkit.configs.dp_labels import dp_labels
 
 
 class MyTestCase(unittest.TestCase):

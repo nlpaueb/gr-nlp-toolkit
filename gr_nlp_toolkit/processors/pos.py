@@ -7,7 +7,7 @@ from transformers import AutoModel
 
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
-from gr_nlp_toolkit.labels.pos_labels import pos_labels, pos_properties
+from gr_nlp_toolkit.configs.pos_labels import pos_labels, pos_properties
 
 
 from gr_nlp_toolkit.models.pos_model import POSModel
