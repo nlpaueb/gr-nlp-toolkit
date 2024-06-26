@@ -83,6 +83,7 @@ def create_dataset_and_dataloader(input_ids) -> Tuple[Dataset, DataLoader]:
     return dataset, dataloader
 
 
+
 class Tokenizer(AbstractProcessor):
     """
     Tokenizer class that takes a document as an input with the text field set, tokenizes and returns a document with

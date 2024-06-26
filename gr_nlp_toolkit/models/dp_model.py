@@ -1,6 +1,6 @@
 from torch.nn import LeakyReLU
 
-import pytorch_wrapper.functional as pwF
+from gr_nlp_toolkit.models.util import create_mask_from_length
 
 from torch import nn
 import torch
@@ -45,7 +45,7 @@ class DPModel(nn.Module):
         # numrels: number of dependency relation labels
         output = {}
 
-        attention_mask = pwF.create_mask_from_length(text_len, text.shape[1])
+        attention_mask = create_mask_from_length(text_len, text.shape[1])
         bert = self._bert_model(text, attention_mask=attention_mask)
 
         # output size bs , mseq , 768

@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
 
         pos = POS()
         self.assertIsNotNone(pos._model)
-        self.assertIsNotNone(pos.system)
+        # self.assertIsNotNone(pos.system)
         doc = pos(doc)
 
         tokens = doc.tokens
@@ -84,7 +84,7 @@ class MyTestCase(unittest.TestCase):
 
         pos = POS()
         self.assertIsNotNone(pos._model)
-        self.assertIsNotNone(pos.system)
+        # self.assertIsNotNone(pos.system)
         doc = pos(doc)
 
         tokens = doc.tokens

@@ -9,11 +9,28 @@ import pickle
 
 
 class G2G(AbstractProcessor):
+    """
+        Greeklsih to Greek (G2G) processor class.
+
+        This class performs G2G conversion using either an LSTM-based model or a transformer-based model.
+        It initializes the model, loads the necessary components, and provides functionality to process documents
+        and convert text using the specified mode.
+    """
 
     def __init__(self, mode = 'LSTM', model_path = None, tokenizer_path = None, device = 'cpu'):
-        
-        self.mode = mode
 
+        """
+        Initializes the G2G class with the specified parameters.
+
+        Args:
+            mode (str, optional): The mode of the model, either 'LSTM' or 'transformer'. Defaults to 'LSTM'.
+            model_path (str, optional): Path to the pre-trained model. Defaults to None.
+            tokenizer_path (str, optional): Path to the tokenizer for LSTM mode. Defaults to None.
+            device (str, optional): Device to load the model on ('cpu' or 'cuda'). Defaults to 'cpu'.
+        """
+
+        self.mode = mode
+        
         if self.mode == 'LSTM':
             input_size = 120
             embed_size = 32
@@ -21,6 +38,7 @@ class G2G(AbstractProcessor):
             output_size = 120
             
             # Load and initialize the LSTM model
+            self.beam_size = 5
             self.model = g2g_RBNLM_model.LSTM_LangModel(input_size, embed_size, hidden_size, output_size)
             self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
@@ -36,9 +54,19 @@ class G2G(AbstractProcessor):
             self.model = ByT5Model(model_path)
 
     def __call__(self, doc: Document) -> Document:
-        # predict
+        """
+        Processes a document to perform Greeklish to Greek conversion.
+
+        Args:
+            doc (Document): The document to process.
+
+        Returns:
+            Document: The document with text converted using the specified model.
+        """
+
+        # Perform G2G conversion based on the mode
         if(self.mode == 'LSTM'):
-            doc.text = self.LM.translate([doc.text], 5)[0]
+            doc.text = self.LM.translate([doc.text], self.beam_size)[0]
         elif(self.mode == 'transformer'):
             doc.text = self.model(doc.text)
         return doc

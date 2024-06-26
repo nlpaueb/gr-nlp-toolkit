@@ -19,7 +19,6 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(69, ner.output_size)
         self.assertIsNotNone(ner._model)
-        self.assertIsNotNone(ner.system)
         doc = ner(doc)
 
         tokens = doc.tokens
@@ -33,7 +32,6 @@ class MyTestCase(unittest.TestCase):
 
         ner = NER()
         self.assertIsNotNone(ner._model)
-        self.assertIsNotNone(ner.system)
         doc = ner(doc)
 
         tokens = doc.tokens

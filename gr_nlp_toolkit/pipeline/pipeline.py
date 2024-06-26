@@ -13,6 +13,8 @@ from gr_nlp_toolkit.processors.g2g import G2G
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
 import os
+import warnings
+# warnings.filterwarnings("ignore")
 
 
 class Pipeline:
@@ -43,7 +45,7 @@ class Pipeline:
             self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl"))
             processors.remove("g2g_lstm")
         elif("g2g_transformer" in processors):
-            self._processors.append(G2G(mode="transformer", model_path="gr_nlp_toolkit/tmp/ByT5_small_10000_samples_v2"))
+            self._processors.append(G2G(mode="transformer", model_path="gr_nlp_toolkit/tmp/ByT5-TV"))
             processors.remove("g2g_transformer")
 
             
@@ -84,9 +86,19 @@ class Pipeline:
     
 if __name__ == "__main__": 
 
-    nlp = Pipeline("g2g_transformer")
+    nlp = Pipeline("g2g_lstm,ner")
 
-    doc = nlp("o Volos kai h Larisa einai poleis ths thessalias")
+    doc = nlp("o volos kai h larisa einai poleis ths thessalias")
+    # doc = nlp("ο Βολος και η Λαρισα ειναι πολεις της θεσσαλίας")
     print(doc.text)
-    # for token in doc.tokens:
-    #     print(token.text, " ", token.ner)
+    for token in doc.tokens:
+        print(token.text) # the text of the token
+        
+        print(token.ner) # the named entity label in IOBES encoding : str
+        
+        print(token.upos) # the UPOS tag of the token
+        print(token.feats) # the morphological features for the token
+        
+        print(token.head) # the head of the token
+        print(token.deprel) # the dependency relation between the current token and its head
+
