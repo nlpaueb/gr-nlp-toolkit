@@ -15,24 +15,68 @@ tokenizer_greek = AutoTokenizer.from_pretrained('nlpaueb/bert-base-greek-uncased
 
 
 def strip_accents_and_lowercase(s: str) -> str:
+    """
+    Strips accents from a string and converts it to lowercase.
+
+    Args:
+        s: A string from which to strip accents.
+
+    Returns:
+        A new string with accents removed and converted to lowercase.
+    """
     return ''.join(c for c in unicodedata.normalize('NFD', s)
                    if unicodedata.category(c) != 'Mn').lower()
 
 
 def create_ids(text: str) -> List[int]:
-    # encode text
+    """
+    Encodes a given text into a list of token IDs using a tokenizer.
+
+    Args:
+        text: A string to encode.
+
+    Returns:
+        A list of token IDs.
+    """
     return tokenizer_greek.encode(text)
 
 
 def create_text(ids: List[int]) -> List[int]:
+    """
+    Decodes a list of token IDs back into a text string.
+
+    Args:
+        ids: A list of token IDs to decode.
+
+    Returns:
+        A decoded string with special tokens skipped.
+    """
     return tokenizer_greek.decode(ids, skip_special_tokens=True)
 
 
 def convert_to_tokens(input_ids: List[int]) -> List[str]:
+    """
+    Converts a list of token IDs into their corresponding token strings.
+
+    Args:
+        input_ids: A list of token IDs.
+
+    Returns:
+        A list of token strings with special tokens skipped.
+    """
     return tokenizer_greek.convert_ids_to_tokens(input_ids, skip_special_tokens=True)
 
 
 def remove_special_tokens(input_ids: List[int]) -> List[int]:
+    """
+    Removes special tokens from a list of token IDs.
+
+    Args:
+        input_ids: A list of token IDs.
+
+    Returns:
+        A new list of token IDs with special tokens removed.
+    """
     input_ids_without_special_tokens = []
     for input_id in input_ids:
         if input_id not in tokenizer_greek.all_special_ids:
@@ -42,6 +86,19 @@ def remove_special_tokens(input_ids: List[int]) -> List[int]:
 
 
 def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tuple[List[str], List[Token], Dict]:
+    """
+    Creates a mask, tokens, and subword-to-word mapping from input tokens and IDs.
+
+    Args:
+        input_tokens: A list of input token strings.
+        input_ids: A list of input token IDs.
+
+    Returns:
+        A tuple containing:
+        - A list of booleans indicating whether each token is a subword.
+        - A list of Token objects.
+        - A dictionary mapping subword indices to word indices.
+    """
     mask = []
     tokens = []
     subword2word = {}
@@ -78,6 +135,17 @@ def create_mask_and_tokens(input_tokens: List[str], input_ids: List[int]) -> Tup
 
 
 def create_dataset_and_dataloader(input_ids) -> Tuple[Dataset, DataLoader]:
+    """
+    Creates a dataset and dataloader from input IDs.
+
+    Args:
+        input_ids: A list of input token IDs.
+
+    Returns:
+        A tuple containing:
+        - A Dataset object.
+        - A DataLoader object.
+    """
     dataset = DatasetImpl([input_ids])
     dataloader = DataLoader(dataset)
     return dataset, dataloader
@@ -91,6 +159,22 @@ class Tokenizer(AbstractProcessor):
     """
 
     def __call__(self, doc: Document) -> Document:
+        """
+        Processes a document by tokenizing its text and setting relevant fields.
+
+        Args:
+            doc: A Document object with the text field set.
+
+        Returns:
+            A Document object with the following fields set:
+            - text: The original text stripped of accents and converted to lowercase.
+            - input_ids: List of token IDs created from the text.
+            - token_mask: List of booleans indicating whether each token is a subword.
+            - tokens: List of Token objects.
+            - subword2word: Dictionary mapping subword indices to word indices.
+            - dataset: A Dataset object created from the input IDs.
+            - dataloader: A DataLoader object created from the dataset.
+        """
         # get document's text and strip accent and lowercase
         doc.text = strip_accents_and_lowercase(doc.text)
         # create ids

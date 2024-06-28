@@ -16,7 +16,6 @@ import os
 import warnings
 # warnings.filterwarnings("ignore")
 
-
 class Pipeline:
     """
     The central class of the toolkit. A pipeline is created after a list of processors are specified. The user can
@@ -41,6 +40,7 @@ class Pipeline:
 
 
         # Adding the g2g processor, which must be the first in the pipeline
+
         if("g2g_lstm" in processors):
             self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl"))
             processors.remove("g2g_lstm")
