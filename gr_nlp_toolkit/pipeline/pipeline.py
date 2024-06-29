@@ -15,6 +15,44 @@ from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 import os
 import warnings
 # warnings.filterwarnings("ignore")
+from typing import Literal
+import torch
+
+
+def get_device_name() -> Literal["mps", "cuda", "cpu"]:
+    """
+    Returns the name of the device where this module is running.
+
+    This is a simple implementation that doesn't cover cases when more powerful GPUs are available 
+    and not a primary device ('cuda:0') or MPS device is available but not configured properly:
+    https://pytorch.org/docs/master/notes/mps.html
+
+    Returns:
+        Literal["mps", "cuda", "cpu"]: Device name, like 'cuda' or 'cpu'.
+
+    Examples:
+        >>> torch.cuda.is_available = lambda: True
+        >>> torch.backends.mps.is_available = lambda: False
+        >>> get_device_name()
+        'cuda'
+
+        >>> torch.cuda.is_available = lambda: False
+        >>> torch.backends.mps.is_available = lambda: True
+        >>> get_device_name()
+        'mps'
+
+        >>> torch.cuda.is_available = lambda: False
+        >>> torch.backends.mps.is_available = lambda: False
+        >>> get_device_name()
+        'cpu'
+    """
+    if torch.cuda.is_available():
+        return "cuda"
+    elif torch.backends.mps.is_available():
+        return "mps"
+    else:
+        return "cpu"
+
 
 class Pipeline:
     """
@@ -29,18 +67,19 @@ class Pipeline:
             processors: A list with the names of the processors you want to load, available values: 'ner', 'por', 'dp'
         """
 
+        self.device = get_device_name()
+
         home = expanduser("~")
         sep = os.sep
         cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
         self._processor_cache = ProcessorCache(GDriveDownloader() , cache_path)
-
         self._processors = []
+
         processors = set(processors.split(","))
         available_processors = ['ner', 'pos', 'dp', 'g2g_lstm', 'g2g_transformer']
 
 
         # Adding the g2g processor, which must be the first in the pipeline
-
         if("g2g_lstm" in processors):
             self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl"))
             processors.remove("g2g_lstm")
@@ -54,13 +93,13 @@ class Pipeline:
         for p in processors:
             if p == available_processors[0]:
                 ner_path = self._processor_cache.get_processor_path('ner')
-                self._processors.append(NER(model_path=ner_path))
+                self._processors.append(NER(model_path=ner_path, device=self.device))
             elif p == available_processors[1]:
                 pos_path = self._processor_cache.get_processor_path('pos')
-                self._processors.append(POS(model_path=pos_path))
+                self._processors.append(POS(model_path=pos_path, device=self.device))
             elif p == available_processors[2]:
                 dp_path = self._processor_cache.get_processor_path('dp')
-                self._processors.append(DP(model_path=dp_path))
+                self._processors.append(DP(model_path=dp_path, device=self.device))
             else:
                 raise Exception(f"Invalid processor name, please choose one of {available_processors}")
 
