@@ -133,3 +133,4 @@ dmypy.json
 
 # Temporary files
 gr_nlp_toolkit/tmp/
+.vscode/
