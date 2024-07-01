@@ -13,11 +13,8 @@ from gr_nlp_toolkit.processors.g2g import G2G
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 
 import os
-import warnings
-# warnings.filterwarnings("ignore")
 from typing import Literal
 import torch
-
 
 def get_device_name() -> Literal["mps", "cuda", "cpu"]:
     """
@@ -58,16 +55,25 @@ class Pipeline:
     """
     The central class of the toolkit. A pipeline is created after a list of processors are specified. The user can
     then annotate a document by using the __call__ method of the Pipeline
+    
+    Attributes:
+        _processors: A list of the processors that will be used in the pipeline
+        _processor_cache: A ProcessorCache object that is used to download the processors
+        device: The device where the pipeline will run
+
     """
 
     def __init__(self, processors: str):
-        """ Load the processors
+        """ 
+        Initializes the pipeline with the specified processors
 
-           Keyword arguments:
-            processors: A list with the names of the processors you want to load, available values: 'ner', 'por', 'dp'
+        Args:
+            processors: A string with the names of the processors you want to load, available values: 'ner', 'por', 'dp
+           
         """
 
         self.device = get_device_name()
+
 
         home = expanduser("~")
         sep = os.sep
@@ -81,10 +87,10 @@ class Pipeline:
 
         # Adding the g2g processor, which must be the first in the pipeline
         if("g2g_lstm" in processors):
-            self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl"))
+            self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl", device=self.device))
             processors.remove("g2g_lstm")
         elif("g2g_transformer" in processors):
-            self._processors.append(G2G(mode="transformer", model_path="gr_nlp_toolkit/tmp/ByT5-TV"))
+            self._processors.append(G2G(mode="transformer", model_path="gr_nlp_toolkit/tmp/ByT5-TV", device=self.device))
             processors.remove("g2g_transformer")
 
             
@@ -106,11 +112,10 @@ class Pipeline:
     def __call__(self, text: str) -> Document:
         
         """
-        Annotate a text
+        Annotate a text with the processors present in the pipeline
 
-        Keyword arguments:
-        param text: A string or a list of strings containing the text to be annotated
-        return: A Document object containing the annotations
+        Args:
+            text: The text that will be annotated
         """
 
         # Create a document from the text
@@ -125,19 +130,14 @@ class Pipeline:
     
 if __name__ == "__main__": 
 
-    nlp = Pipeline("g2g_lstm,ner")
+    # nlp = Pipeline("g2g_transformer,ner,dp,pos")
+    nlp = Pipeline("g2g_transformer")
 
     doc = nlp("o volos kai h larisa einai poleis ths thessalias")
+    
     # doc = nlp("ο Βολος και η Λαρισα ειναι πολεις της θεσσαλίας")
     print(doc.text)
     for token in doc.tokens:
-        print(token.text) # the text of the token
+        print(f"{token.text}: {token.ner}, {token.upos}, {token.feats}, {token.head}, {token.deprel}") # the text of the token
         
-        print(token.ner) # the named entity label in IOBES encoding : str
-        
-        print(token.upos) # the UPOS tag of the token
-        print(token.feats) # the morphological features for the token
-        
-        print(token.head) # the head of the token
-        print(token.deprel) # the dependency relation between the current token and its head
 

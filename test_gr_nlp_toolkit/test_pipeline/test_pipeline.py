@@ -6,12 +6,14 @@ from gr_nlp_toolkit.configs.pos_labels import pos_labels, pos_properties
 from gr_nlp_toolkit.pipeline.pipeline import Pipeline
 
 
+
 class TestPipeline(unittest.TestCase):
     def test_using_all_processors(self):
-        nlp = Pipeline('dp,pos,ner')
+        nlp = Pipeline('dp,pos,ner,g2g_lstm')
 
         sentences = ["Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021",
-                     "Το ποιηματάκι το έγραψε ο διάσημος ποιητής, Νίκος Νικολαϊδης"]
+                     "Το ποιηματάκι το έγραψε ο διάσημος ποιητής, Νίκος Νικολαϊδης",
+                     "Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun"]
         for sent in sentences:
             doc = nlp(sent)
 
@@ -45,8 +47,8 @@ class TestPipeline(unittest.TestCase):
                     self.assertTrue(token.upos in pos_labels['upos'])
 
     def test_annotations_are_same_with_multiple_configurations(self):
-        nlp = Pipeline('dp,pos,ner')
-        doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021")
+        nlp = Pipeline('dp,pos,ner,g2g_lstm')
+        doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
 
         deprels_preds = []
         upos_preds = []
@@ -56,22 +58,22 @@ class TestPipeline(unittest.TestCase):
             upos_preds.append(token.upos)
             ner_preds.append(token.ner)
 
-        nlp = Pipeline('dp')
-        doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021")
+        nlp = Pipeline('dp,g2g_lstm')
+        doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
         new_deprels_preds = []
 
         for token in doc.tokens:
             new_deprels_preds.append(token.deprel)
 
-        nlp = Pipeline('pos')
-        doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021")
+        nlp = Pipeline('pos,g2g_lstm')
+        doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
         new_upos_preds =[]
 
         for token in doc.tokens:
             new_upos_preds.append(token.upos)
 
-        nlp = Pipeline('ner')
-        doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021")
+        nlp = Pipeline('ner,g2g_lstm')
+        doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
         new_ner_preds =[]
         for token in doc.tokens:
             new_ner_preds.append(token.ner)

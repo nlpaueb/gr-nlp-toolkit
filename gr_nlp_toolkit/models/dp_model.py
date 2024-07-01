@@ -7,11 +7,36 @@ import torch
 
 
 class DPModel(nn.Module):
+    """
+    Dependency Parsing model.
+
+    Attributes:
+        numrels (int): Number of dependency relation labels.
+        _bert_model (nn.Module): The BERT model.
+        _dp (nn.Dropout): Dropout layer.
+        arc_head (nn.Linear): Linear layer for arc head representation.
+        arc_dep (nn.Linear): Linear layer for arc dependent representation.
+        rel_head (nn.Linear): Linear layer for relation head representation.
+        rel_dep (nn.Linear): Linear layer for relation dependent representation.
+        arc_bias (nn.Parameter): Bias parameter for arc representation.
+        rel_bias (nn.Parameter): Bias parameter for relation representation.
+        u_rel (nn.Parameter): Parameter for relation representation.
+        w_arc (nn.Parameter): Parameter for arc representation.
+        w_rel_head (nn.Parameter): Parameter for relation head representation.
+        w_rel_dep (nn.Parameter): Parameter for relation dependent representation.
+        deprel_linear_2 (nn.Linear): Linear layer for dependency relation labels.
+        relu (LeakyReLU): LeakyReLU activation function.
+    """
 
     def __init__(self, bert_model, deprel_i2l, dp):
         """
-        :param bert_model:  The bert model nn.Module
-        :param dp: the drop out probability
+        Initialize the DPModel.
+
+        Args:
+            bert_model (nn.Module): The BERT model.
+            deprel_i2l (list): List of dependency relation labels.
+            dp (float): The dropout probability.
+
         """
         super(DPModel, self).__init__()
         self.numrels = len(deprel_i2l)
@@ -27,7 +52,6 @@ class DPModel(nn.Module):
         self.arc_bias = nn.Parameter(torch.zeros(1, 768, 1))
         self.rel_bias = nn.Parameter(torch.zeros(1, 1, 1, self.numrels))
 
-
         self.u_rel = nn.Parameter(torch.zeros(1, 768, self.numrels * 768))
 
         self.w_arc = nn.Parameter(torch.zeros(1, 768, 768))
@@ -40,9 +64,17 @@ class DPModel(nn.Module):
 
 
     def forward(self, text, text_len):
-        # bs : batch size
-        # mseq: maximum sentence length in tokens for the current batch
-        # numrels: number of dependency relation labels
+        """
+        Forward pass of the DPModel.
+
+        Args:
+            text (Tensor): Input text.
+            text_len (Tensor): Length of the input text.
+
+        Returns:
+            output (dict): Dictionary containing the output of the model.
+
+        """
         output = {}
 
         attention_mask = create_mask_from_length(text_len, text.shape[1])

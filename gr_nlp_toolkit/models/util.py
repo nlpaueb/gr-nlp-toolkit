@@ -20,37 +20,3 @@ def create_mask_from_length(length_tensor, mask_size):
 
     return mask < length_tensor.int().unsqueeze(-1)
 
-
-def get_device_name() -> Literal["mps", "cuda", "cpu"]:
-    """
-    Returns the name of the device where this module is running.
-
-    This is a simple implementation that doesn't cover cases when more powerful GPUs are available 
-    and not a primary device ('cuda:0') or MPS device is available but not configured properly:
-    https://pytorch.org/docs/master/notes/mps.html
-
-    Returns:
-        Literal["mps", "cuda", "cpu"]: Device name, like 'cuda' or 'cpu'.
-
-    Examples:
-        >>> torch.cuda.is_available = lambda: True
-        >>> torch.backends.mps.is_available = lambda: False
-        >>> get_device_name()
-        'cuda'
-
-        >>> torch.cuda.is_available = lambda: False
-        >>> torch.backends.mps.is_available = lambda: True
-        >>> get_device_name()
-        'mps'
-
-        >>> torch.cuda.is_available = lambda: False
-        >>> torch.backends.mps.is_available = lambda: False
-        >>> get_device_name()
-        'cpu'
-    """
-    if torch.cuda.is_available():
-        return "cuda"
-    elif torch.backends.mps.is_available():
-        return "mps"
-    else:
-        return "cpu"

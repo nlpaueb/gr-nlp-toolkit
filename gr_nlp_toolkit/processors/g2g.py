@@ -49,7 +49,9 @@ class G2G(AbstractProcessor):
             device (str, optional): Device to load the model on ('cpu' or 'cuda'). Defaults to 'cpu'.
         """
 
+        
         self.mode = mode
+        self.device = torch.device(device)
         
         if self.mode == 'LSTM':
             input_size = 120
@@ -60,18 +62,27 @@ class G2G(AbstractProcessor):
             # Load and initialize the LSTM model
             self.beam_size = 5
             self.model = g2g_RBNLM_model.LSTM_LangModel(input_size, embed_size, hidden_size, output_size)
-            self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+            
 
             # Load and initialize the tokenizer
             self.text_vectorizer = TextVectorizer("char")
-            with open(tokenizer_path, "rb") as file:
-                self.text_vectorizer = pickle.load(file)
 
             # Initialize the LanguageModel
-            self.LM = LanguageModel(self.text_vectorizer, self.model)
+            self.LM = LanguageModel(self.text_vectorizer, self.model, device=self.device)
+
+            # load the pretrained model and tokenizer if provided
+            if(model_path is not None):
+                self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+
+            if(tokenizer_path is not None):
+                with open(tokenizer_path, "rb") as file:
+                    self.text_vectorizer = pickle.load(file)
 
         elif self.mode == 'transformer':
             self.model = ByT5Model(model_path)
+            self.model.to(self.device)
+            self.model.eval()
+
 
     def __call__(self, doc: Document) -> Document:
         """

@@ -5,7 +5,26 @@ from torch.utils.data import DataLoader
 from gr_nlp_toolkit.configs.dictionary_tables import greeklish_to_greek_intonated
 
 class LSTM_LangModel(nn.Module):
+    """ 
+    LSTM-based language model
+
+    Attributes:
+        hidden_size (int): The size of the hidden layer
+        embed (nn.Embedding): The embedding layer
+        lstm (nn.LSTM): The LSTM layer
+        dense (nn.Linear): The dense layer
+        dropout (nn.Dropout): The dropout layer
+    """
     def __init__(self, input_size, embed_size, hidden_size, output_size):
+        """
+        Initializes the LSTM_LangModel with the specified parameters.
+
+        Args:
+            input_size (int): The size of the input layer
+            embed_size (int): The size of the embedding layer
+            hidden_size (int): The size of the hidden layer
+            output_size (int): The size of the output layer
+        """
         super(LSTM_LangModel, self).__init__()
         self.hidden_size = hidden_size
 
@@ -15,6 +34,20 @@ class LSTM_LangModel(nn.Module):
         self.dropout = nn.Dropout(0.5)
 
     def forward(self, x, h0=None, c0=None):
+        """
+        Forward pass of the LSTM_LangModel
+
+        Args:
+            x (Tensor): The input tensor
+            h0 (Tensor): The initial hidden state
+            c0 (Tensor): The initial cell state
+        
+        Returns:
+            output (Tensor): The output tensor
+            h (Tensor): The hidden state
+            c (Tensor): The cell state
+        
+        """
         input_embedded = self.embed(x)
         if h0 is None and c0 is None:
             output_lstm, (h, c) = self.lstm(input_embedded)
@@ -23,18 +56,33 @@ class LSTM_LangModel(nn.Module):
         output = self.dropout(output_lstm)
         output = self.dense(output)
         return output, h, c
-    
+
+
 class State():
+    """
+    Container class for the attributes of each candidate replacement.
+
+    Attributes:
+        translated (list): List of tokens already translated to the desired language.
+        remaining (str): The remaining sentence to be translated.
+        out (tensor): The last output of the LSTM for that particular state. Contains
+                    logits that will become probabilities with the application of a softmax.
+        hidden (tuple): Contains the hidden states of the candidate.
+        score (float): The score given to the translation based on the language model.
+    """
 
     def __init__(self, translated, remaining, out, hidden, score):
+
         """
-        Container class for the attributes of each candidate replacement.
-        :param translated: (list) List of tokens already translated to the desired language.
-        :param remaining: (str) The remaining sentence to be translated.
-        :param out: (tensor) The last output of the LSTM for that particular state. Contains
+        Initializes the State object with the specified parameters.
+
+        Args:
+            translated (list): List of tokens already translated to the desired language.
+            remaining (str): The remaining sentence to be translated.
+            out (tensor): The last output of the LSTM for that particular state. Contains
                     logits that will become probabilities with the application of a softmax.
-        :param hidden: (tuple) Contains the hidden states of the candidate.
-        :param score: (float) the score given to the translation based on the language model.
+            hidden (tuple): Contains the hidden states of the candidate.
+            score (float): The score given to the translation based on the language model.
         """
         self.translated = translated
         self.remaining = remaining
@@ -56,10 +104,13 @@ class State():
 
 class LanguageModel:
 
-    def __init__(self, vectorizer, model):
+    def __init__(self, vectorizer, model, device='cpu'):
         self.vectorizer = vectorizer
         self.model = model
         self.mode = vectorizer.mode
+        self.device = torch.device(device)
+        self.model.to(self.device)
+
         # Use the log version of Softmax to sum scores instead of multiplying them and avoid decay.
         self.softmax = nn.LogSoftmax(dim=1)
 
@@ -89,7 +140,7 @@ class LanguageModel:
                 # First, we need to "prep" the char model. This is done by feeding the network with the
                 # <s> token and saving the output hidden states for the initial State() object.
                 start_input = self.vectorizer.input_tensor("<s>")
-                out, h_n, c_n = self.model(start_input, None, None)
+                out, h_n, c_n = self.model(start_input.to(self.device), None, None)
                 # The score of the initial state in 0, because we use LogSoftmax instead of regular Softmax.
                 initial_state = State(translated, remaining, out, (h_n, c_n), 0)
                 states = [initial_state]
@@ -167,7 +218,7 @@ class LanguageModel:
                         score = score + probs[0][idx].item()
                         # Feed the token to the model to get the next output and hidden states
                         input = self.vectorizer.input_tensor(token)
-                        out, h_n, c_n = self.model(input, h_n, c_n)
+                        out, h_n, c_n = self.model(input.to(self.device), h_n, c_n)
 
                     translated_tokens = [token for token in item]
 

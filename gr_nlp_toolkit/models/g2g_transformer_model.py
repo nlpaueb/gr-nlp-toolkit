@@ -1,5 +1,8 @@
 from transformers import T5ForConditionalGeneration, AutoTokenizer
 from torch import nn
+import torch
+
+
 
 class ByT5Model(nn.Module):
     """
@@ -10,7 +13,7 @@ class ByT5Model(nn.Module):
         tokenizer (AutoTokenizer): The tokenizer for the ByT5 model
     """
 
-    def __init__(self, model_path = None):
+    def __init__(self, model_path = None, device = 'cpu'):
         """
         Initializes the ByT5Model with a pretrained T5 model and tokenizer.
 
@@ -21,6 +24,8 @@ class ByT5Model(nn.Module):
 
         self.model = T5ForConditionalGeneration.from_pretrained(model_path)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.device = torch.device(device)
+        self.model.to(self.device)
 
     def forward(self, text):
         """
@@ -34,6 +39,6 @@ class ByT5Model(nn.Module):
         """
         self.model.eval()
         tokenized_text = self.tokenizer(text, return_tensors="pt").input_ids
-        output = self.model.generate(tokenized_text, max_length=200)
+        output = self.model.generate(tokenized_text.to(self.device), max_length=200)
 
         return self.tokenizer.decode(output[0], skip_special_tokens=True)
