@@ -103,8 +103,25 @@ class State():
         return False
 
 class LanguageModel:
+    """
+    Language model for Greeklish to Greek conversion.
+
+    Attributes:
+        vectorizer (TextVectorizer): The vectorizer used to convert tokens to indices.
+        model (LSTM_LangModel): The language model used for translation.
+        device (str): The device to run the model on.
+        softmax (nn.LogSoftmax): The log version of the softmax function.
+    """
 
     def __init__(self, vectorizer, model, device='cpu'):
+        """
+        Initializes the LanguageModel with the specified parameters.
+
+        Args:
+            vectorizer: (TextVectorizer) The vectorizer used to convert tokens to indices.
+            model: (LSTM_LangModel) The language model used for translation.
+            device: (str) The device to run the model on.
+        """
         self.vectorizer = vectorizer
         self.model = model
         self.mode = vectorizer.mode
@@ -117,15 +134,23 @@ class LanguageModel:
     def load_model(self, path):
         """
         Load a pre-trained model as a state dictionary.
+
+        Args:
+            path (str): The path to the pre-trained model.
         """
         self.model.load_state_dict(torch.load(path))
 
     def translate(self, sentences, beams):
         """
         Takes a list of sentences and translates them.
-        :param sentences: (list) Sentences you want to translate
-        :param beams: (int) The number of parameters
-        :return: (list) Translated sentences
+
+        Args:
+            sentences: (list) Sentences you want to translate
+            beams: (int) The number of parameters
+
+        Returns:
+         translated_sentences: (list) Translated sentences
+
         """
         # Don't forget to put the model in eval mode.
         self.model.eval()
@@ -183,6 +208,18 @@ class LanguageModel:
             return translated_sentences
 
     def get_candidates(self, state):
+        """
+        Get the next candidates for the translation.
+
+        Args:
+            state (State): The current state of the translation.
+        
+        Returns:
+            candidates (list): A list of the next candidates for the translation.
+
+        """
+
+
         # If the state is already a final state (no remaining text to translate),
         # it returns only itself as a candidate.
         if not state.remaining:

@@ -11,10 +11,14 @@ from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.g2g import G2G
 
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
+from huggingface_hub import hf_hub_download
 
 import os
 from typing import Literal
 import torch
+
+from transformers import logging
+logging.set_verbosity_error()
 
 def get_device_name() -> Literal["mps", "cuda", "cpu"]:
     """
@@ -73,12 +77,6 @@ class Pipeline:
         """
 
         self.device = get_device_name()
-
-
-        home = expanduser("~")
-        sep = os.sep
-        cache_path = home + sep + ".cache" + sep + "gr_nlp_toolkit"
-        self._processor_cache = ProcessorCache(GDriveDownloader() , cache_path)
         self._processors = []
 
         processors = set(processors.split(","))
@@ -87,10 +85,10 @@ class Pipeline:
 
         # Adding the g2g processor, which must be the first in the pipeline
         if("g2g_lstm" in processors):
-            self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/tmp/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/tmp/RBNLMtextVectorizer.pkl", device=self.device))
+            self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/RBNLM_weights/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/RBNLM_weights/RBNLMtextVectorizer.pkl", device=self.device))
             processors.remove("g2g_lstm")
         elif("g2g_transformer" in processors):
-            self._processors.append(G2G(mode="transformer", model_path="gr_nlp_toolkit/tmp/ByT5-TV", device=self.device))
+            self._processors.append(G2G(mode="transformer", model_path="AUEB-NLP/ByT5_g2g", device=self.device))
             processors.remove("g2g_transformer")
 
             
@@ -98,13 +96,13 @@ class Pipeline:
         self._processors.append(Tokenizer())
         for p in processors:
             if p == available_processors[0]:
-                ner_path = self._processor_cache.get_processor_path('ner')
+                ner_path = hf_hub_download(repo_id="AUEB-NLP/gr-nlp-toolkit", filename="ner_processor")
                 self._processors.append(NER(model_path=ner_path, device=self.device))
             elif p == available_processors[1]:
-                pos_path = self._processor_cache.get_processor_path('pos')
+                pos_path = hf_hub_download(repo_id="AUEB-NLP/gr-nlp-toolkit", filename="pos_processor")
                 self._processors.append(POS(model_path=pos_path, device=self.device))
             elif p == available_processors[2]:
-                dp_path = self._processor_cache.get_processor_path('dp')
+                dp_path = hf_hub_download(repo_id="AUEB-NLP/gr-nlp-toolkit", filename="dp_processor")
                 self._processors.append(DP(model_path=dp_path, device=self.device))
             else:
                 raise Exception(f"Invalid processor name, please choose one of {available_processors}")
@@ -131,13 +129,21 @@ class Pipeline:
 if __name__ == "__main__": 
 
     # nlp = Pipeline("g2g_transformer,ner,dp,pos")
-    nlp = Pipeline("g2g_transformer")
+    nlp = Pipeline("ner,pos,dp,g2g_lstm")
 
-    doc = nlp("o volos kai h larisa einai poleis ths thessalias")
+    txts = ["Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun",
+            "o Volos kai h thessalia einai poleis ths thessalias",
+            "h alhueia einai oti den kserw ti kanw"]
     
-    # doc = nlp("ο Βολος και η Λαρισα ειναι πολεις της θεσσαλίας")
-    print(doc.text)
-    for token in doc.tokens:
-        print(f"{token.text}: {token.ner}, {token.upos}, {token.feats}, {token.head}, {token.deprel}") # the text of the token
+    # txts = ["Ο Βόλος και η Λάρισα είναι πόλεις της Θεσσαλίας"]
+    
+    for txt in txts:
+
+        doc = nlp(txt)
         
+        # doc = nlp("ο Βολος και η Λαρισα ειναι πολεις της θεσσαλίας")
+        print(doc.text)
+        for token in doc.tokens:
+            print(f"{token.text}: {token.ner}, {token.upos}, {token.feats}, {token.head}, {token.deprel}") # the text of the token
+            
 

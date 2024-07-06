@@ -8,6 +8,7 @@ from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
 from gr_nlp_toolkit.models.ner_model import NERBERTModel
+from huggingface_hub import hf_hub_download
 
 
 model_params = {'dp': 0}
@@ -61,6 +62,7 @@ class NER(AbstractProcessor):
             self._model.load_state_dict(torch.load(model_path, map_location=self.device), strict=True)
 
 
+
     def __call__(self, doc: Document) -> Document:
         """
         Processes a document to perform Named Entity Recognition.
@@ -87,6 +89,5 @@ class NER(AbstractProcessor):
                 token = doc.tokens[i]
                 token.ner = self.I2L[pred]
                 i+=1
-
         
         return doc

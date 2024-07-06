@@ -21,7 +21,7 @@ class ByT5Model(nn.Module):
             model_path: The path to the pretrained model and tokenizer.
         """
         super(ByT5Model, self).__init__()
-
+        
         self.model = T5ForConditionalGeneration.from_pretrained(model_path)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         self.device = torch.device(device)

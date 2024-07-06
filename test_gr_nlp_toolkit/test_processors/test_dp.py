@@ -17,7 +17,7 @@ class MyTestCase(unittest.TestCase):
 
         dp = DP()
         self.assertIsNotNone(dp._model)
-        self.assertIsNotNone(dp.system)
+
         doc = dp(doc)
 
         tokens = doc.tokens
@@ -35,7 +35,6 @@ class MyTestCase(unittest.TestCase):
         dp = DP()
 
         self.assertIsNotNone(dp._model)
-        self.assertIsNotNone(dp.system)
         doc = dp(doc)
 
         tokens = doc.tokens
@@ -44,3 +43,7 @@ class MyTestCase(unittest.TestCase):
             self.assertIsNotNone(token.deprel)
             self.assertTrue(token.head in range(0, len(tokens)))
             self.assertTrue(token.deprel in dp_labels)
+
+
+if __name__ == '__main__':
+    unittest.main()

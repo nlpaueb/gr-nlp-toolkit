@@ -1,7 +1,7 @@
 import unittest
 
 from gr_nlp_toolkit.processors.g2g import G2G
-from gr_nlp_toolkit.processors.g2g import majority_script
+from gr_nlp_toolkit.processors.g2g import detect_language
 from gr_nlp_toolkit.domain.document import Document
 
 class MyTestCase(unittest.TestCase):
@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
 
         doc = Document('"o volos kai h larisa einai poleis ths thessalias"')
         doc = g2g(doc)
-        self.assertEqual(majority_script(doc.text), 'greek')
+        self.assertEqual(detect_language(doc.text), 'greek')
     
     def test_g2g_transformer(self):
             
@@ -25,7 +25,7 @@ class MyTestCase(unittest.TestCase):
 
         doc = Document('"o volos kai h larisa einai poleis ths thessalias"')
         doc = g2g(doc)
-        self.assertEqual(majority_script(doc.text), 'greek')
+        self.assertEqual(detect_language(doc.text), 'greek')
 
         
 if __name__ == '__main__':

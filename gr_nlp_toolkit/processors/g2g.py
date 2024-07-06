@@ -7,7 +7,7 @@ from gr_nlp_toolkit.models.g2g_transformer_model import ByT5Model
 import torch
 import pickle
 
-def majority_script(text):
+def detect_language(text):
     """
     Checks whether the majority of the letters in the input text are in the greek or the latin script
 
@@ -66,17 +66,18 @@ class G2G(AbstractProcessor):
 
             # Load and initialize the tokenizer
             self.text_vectorizer = TextVectorizer("char")
-
-            # Initialize the LanguageModel
-            self.LM = LanguageModel(self.text_vectorizer, self.model, device=self.device)
-
-            # load the pretrained model and tokenizer if provided
+            
             if(model_path is not None):
                 self.model.load_state_dict(torch.load(model_path, map_location=self.device))
 
+            
             if(tokenizer_path is not None):
                 with open(tokenizer_path, "rb") as file:
                     self.text_vectorizer = pickle.load(file)
+
+            # Initialize the LanguageModel
+            self.LM = LanguageModel(self.text_vectorizer, self.model, device=self.device)
+                    
 
         elif self.mode == 'transformer':
             self.model = ByT5Model(model_path)
@@ -95,9 +96,11 @@ class G2G(AbstractProcessor):
             Document: The document with text converted using the specified model.
         """
 
-        # If the text is in greek, skip the g2g conversion
-        if(majority_script(doc.text) == 'greek'):
+        # If the text is in already in greek, skip the g2g conversion
+        if(detect_language(doc.text) == 'greek'):
             return doc
+        
+        
 
         # Perform G2G conversion based on the mode
         if(self.mode == 'LSTM'):

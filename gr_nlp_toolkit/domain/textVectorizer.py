@@ -13,12 +13,18 @@ class TextVectorizer:
     [1 to max_vocab_size+1]   : tokens learnt in the vocab. (This could be smaller than the actual max number provided)
     len(vocab)-1              : [SOS] symbol
     len(vocab)                : OOV tokens
+
+    Attributes:
+        vocab (dict): A dictionary mapping tokens to their indices. (token --> index)
+        idx2token (list): A list mapping indices to tokens. (idx --> index)
+        mode (str): The tokenization mode, either 'word' or 'char'.
     """
     def __init__(self, mode):
         """
-        vocab: dictionary (token --> index)
-        idx2token: list (idx --> index)
-        :param mode:
+        Initializes the TextVectorizer with the specified mode.
+
+        Args:
+            mode (str): The tokenization mode, either 'word' or 'char'.
         """
         assert mode in {"word", "char"}
         self.vocab = dict()
@@ -29,8 +35,10 @@ class TextVectorizer:
         """
         Builds the vocabulary from a corpus of sentences. The words get encoded by
         count of appearances in the data.
-        :param corpus: A list of sentences as strings.
-        :param max_size: The max size of words that can be encoded, excluding codes for <s> & OOV tokens.
+
+        Args:
+            corpus (str): A list of sentences as strings.
+            max_size (int): The max size of words that can be encoded, excluding codes for <s> & OOV tokens.
         """
         counts = Counter()
         self.vocab["<pad>"] = 0
@@ -66,8 +74,12 @@ class TextVectorizer:
         """
         Takes as input a corpus of sentences, generates source/target training pairs
         and encodes them based on the vocabulary. Then it returns the pairs as tuples of tensors.
-        :param corpus: Array of sentences in the form of strings.
-        :return: list of pairs of torch.LongTensor objects
+
+        Args:
+            corpus (list): Array of sentences in the form of strings.
+
+        Returns:
+            dataset (GreekDataset): List of pairs of torch.LongTensor objects
         """
         # We start by tokenizing the corpus.
         tokenized_dataset = []
@@ -116,6 +128,12 @@ class TextVectorizer:
     def split_sequence(self, sequence):
         """
         Splits a sequence based on the tokenization mode configured, and returns it without indexing it.
+
+        Args:
+            sequence (str): The sentence to be split.
+        
+        Returns:
+            sequence (str): The sentence split based on the tokenization mode.
         """
         if self.mode == "word":
             tokens = sequence.translate(str.maketrans("", "", string.punctuation)).split()
@@ -127,8 +145,12 @@ class TextVectorizer:
     def input_tensor(self, sequence):
         """
         Takes a sentence and returns its encoding, based on the vocabulary, to be used for inference.
-        :param sequence: (String) The sentence to be encoded.
-        :return: Encoded sentence in form of a torch.Longtensor object.
+
+        Args:
+            sequence (String): The sentence to be encoded.
+
+        Returns:
+            vectorized_input (torch.LongTensor): Encoded sentence in form of a torch.Longtensor object.
         """
         if self.mode == "word":
             tokens = sequence.translate(str.maketrans("", "", string.punctuation)).split()
@@ -141,4 +163,4 @@ class TextVectorizer:
         # Convert to tensor
         vectorized_input = torch.LongTensor(vectorized_input)
 
-        return vectorized_input
+        return vectorized_input 
