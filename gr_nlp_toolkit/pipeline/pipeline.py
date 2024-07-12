@@ -1,9 +1,3 @@
-from os.path import expanduser
-
-from transformers import AutoModel
-
-from gr_nlp_toolkit.data.downloader_gdrive import GDriveDownloader
-from gr_nlp_toolkit.data.processor_cache import ProcessorCache
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.dp import DP
 from gr_nlp_toolkit.processors.ner import NER
@@ -13,7 +7,6 @@ from gr_nlp_toolkit.processors.g2g import G2G
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
 from huggingface_hub import hf_hub_download
 
-import os
 from typing import Literal
 import torch
 
@@ -80,16 +73,16 @@ class Pipeline:
         self._processors = []
 
         processors = set(processors.split(","))
-        available_processors = ['ner', 'pos', 'dp', 'g2g_lstm', 'g2g_transformer']
+        available_processors = ['ner', 'pos', 'dp', 'g2g_lite', 'g2g']
 
 
         # Adding the g2g processor, which must be the first in the pipeline
-        if("g2g_lstm" in processors):
+        if("g2g_lite" in processors):
             self._processors.append(G2G(mode="LSTM", model_path="gr_nlp_toolkit/RBNLM_weights/LSTM_LM_50000_char_120_32_512.pt", tokenizer_path="gr_nlp_toolkit/RBNLM_weights/RBNLMtextVectorizer.pkl", device=self.device))
-            processors.remove("g2g_lstm")
-        elif("g2g_transformer" in processors):
+            processors.remove("g2g_lite")
+        elif("g2g" in processors):
             self._processors.append(G2G(mode="transformer", model_path="AUEB-NLP/ByT5_g2g", device=self.device))
-            processors.remove("g2g_transformer")
+            processors.remove("g2g")
 
             
         # Adding the tokenizer processor
@@ -129,19 +122,18 @@ class Pipeline:
 if __name__ == "__main__": 
 
     # nlp = Pipeline("g2g_transformer,ner,dp,pos")
-    nlp = Pipeline("ner,pos,dp,g2g_lstm")
+    nlp = Pipeline("g2g")
 
     txts = ["Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun",
-            "o Volos kai h thessalia einai poleis ths thessalias",
-            "h alhueia einai oti den kserw ti kanw"]
+            "o volos kai h larisa einai poleis ths thessalias",
+            "Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
+    # txts = ["Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
     
-    # txts = ["Ο Βόλος και η Λάρισα είναι πόλεις της Θεσσαλίας"]
     
     for txt in txts:
 
         doc = nlp(txt)
         
-        # doc = nlp("ο Βολος και η Λαρισα ειναι πολεις της θεσσαλίας")
         print(doc.text)
         for token in doc.tokens:
             print(f"{token.text}: {token.ner}, {token.upos}, {token.feats}, {token.head}, {token.deprel}") # the text of the token

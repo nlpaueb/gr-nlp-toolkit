@@ -9,7 +9,7 @@ from gr_nlp_toolkit.pipeline.pipeline import Pipeline
 
 class TestPipeline(unittest.TestCase):
     def test_using_all_processors(self):
-        nlp = Pipeline('dp,pos,ner,g2g_lstm')
+        nlp = Pipeline('dp,pos,ner,g2g_lite')
 
         sentences = ["Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro το 2021",
                      "Το ποιηματάκι το έγραψε ο διάσημος ποιητής, Νίκος Νικολαϊδης",
@@ -47,7 +47,7 @@ class TestPipeline(unittest.TestCase):
                     self.assertTrue(token.upos in pos_labels['upos'])
 
     def test_annotations_are_same_with_multiple_configurations(self):
-        nlp = Pipeline('dp,pos,ner,g2g_lstm')
+        nlp = Pipeline('dp,pos,ner,g2g_lite')
         doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
 
         deprels_preds = []
@@ -58,21 +58,21 @@ class TestPipeline(unittest.TestCase):
             upos_preds.append(token.upos)
             ner_preds.append(token.ner)
 
-        nlp = Pipeline('dp,g2g_lstm')
+        nlp = Pipeline('dp,g2g_lite')
         doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
         new_deprels_preds = []
 
         for token in doc.tokens:
             new_deprels_preds.append(token.deprel)
 
-        nlp = Pipeline('pos,g2g_lstm')
+        nlp = Pipeline('pos,g2g_lite')
         doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
         new_upos_preds =[]
 
         for token in doc.tokens:
             new_upos_preds.append(token.upos)
 
-        nlp = Pipeline('ner,g2g_lstm')
+        nlp = Pipeline('ner,g2g_lite')
         doc = nlp("Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou xanoun")
         new_ner_preds =[]
         for token in doc.tokens:
