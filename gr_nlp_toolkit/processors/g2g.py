@@ -6,6 +6,7 @@ from gr_nlp_toolkit.models.g2g_RBNLM_model import LanguageModel
 from gr_nlp_toolkit.models.g2g_transformer_model import ByT5Model
 import torch
 import pickle
+import time
 
 def detect_language(text):
     """

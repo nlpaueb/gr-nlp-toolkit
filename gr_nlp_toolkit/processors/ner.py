@@ -8,7 +8,6 @@ from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.abstract_processor import AbstractProcessor
 
 from gr_nlp_toolkit.models.ner_model import NERBERTModel
-from huggingface_hub import hf_hub_download
 
 
 model_params = {'dp': 0}
@@ -59,7 +58,7 @@ class NER(AbstractProcessor):
 
         # load the pretrained model if provided
         if model_path is not None:
-            self._model.load_state_dict(torch.load(model_path, map_location=self.device), strict=True)
+            self._model.load_state_dict(torch.load(model_path, map_location=self.device), strict=False)
 
 
 
