@@ -25,11 +25,10 @@ annotates the text with a specific task's annotations.
 
 ```python
 from gr_nlp_toolkit import Pipeline
-nlp = Pipeline("pos,ner,dp") # Use ner,pos,dp processors
+nlp = Pipeline("pos,ner,dp,g2g") # Use ner,pos,dp and g2g processors
 # nlp = Pipeline("ner,dp") # Use only ner and dp processors
-# nlp = Pipeline("pos,ner,dp,g2g") # Use ner,pos,dp and g2g processors
+# nlp = Pipeline("pos,ner,dp") # Use ner,pos,dp processors
 ```
-
 The first time you use a processor, the data files of that processor are cached in the .cache folder of your home directory, so that you will not have to download them again. Each processor is about 500 MB in size, so the maximum download size can be up to 1.5 GB.
 
 ## Generating the annotations
@@ -65,6 +64,10 @@ and `token.head` and `token.deprel` are set by the `dp` processor.
 A small detail is that to get the `Token` object that is the head of another token you need to access
 `doc.tokens[head-1]`. The reason for this is that the enumeration of the tokens starts from 1 and when the
 field `token.head` is set to 0, that means the token is the root of the word.
+
+## Models on HuggingFace
+
+The models are also available on Huggingface
 
 ## Alternative download methods for the toolkit models
 
