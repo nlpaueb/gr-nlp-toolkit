@@ -21,11 +21,13 @@ annotates the text with a specific task's annotations.
 - To obtain Part-of-Speech and Morphological Tagging annotations add the `pos` processor
 - To obtain Named Entity Recognition annotations add the `ner` processor
 - To obtain Dependency Parsing annotations add the `dp` processor
+- To enable the transliteration from Greeklish to Greek add the `g2g` processor or the `g2g_lite` processor for a lighter but less accurate model
 
 ```python
 from gr_nlp_toolkit import Pipeline
 nlp = Pipeline("pos,ner,dp") # Use ner,pos,dp processors
 # nlp = Pipeline("ner,dp") # Use only ner and dp processors
+# nlp = Pipeline("pos,ner,dp,g2g") # Use ner,pos,dp and g2g processors
 ```
 
 The first time you use a processor, the data files of that processor are cached in the .cache folder of your home directory, so that you will not have to download them again. Each processor is about 500 MB in size, so the maximum download size can be up to 1.5 GB.
@@ -73,3 +75,6 @@ Currently the models are served in a Google Drive folder. In case they become un
 - Part-of-Speech and morphological tagging model: https://archive.org/details/toolkit-pos
 
 The toolkit currently cannot download the models from these sources, but if you have downloaded the toolkit models via an alternative source you can place the files with their names in the `.cache/gr_nlp_toolkit/` directory of your home folder (`~/.cache/gr_nlp_toolkit` in Linux systems). Be sure to name the Dependency Parsing model file as `toolkit-dp`, the Named Entity Recognition model file as `toolkit-ner` and the Part-of-Speech and morphological tagging model file as `toolkit-pos`. This way, the toolkit will not download any models from the Internet and will use the local ones instead.
+
+
+
