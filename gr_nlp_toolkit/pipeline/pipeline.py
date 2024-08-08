@@ -121,17 +121,19 @@ class Pipeline:
     
 if __name__ == "__main__": 
 
-    nlp = Pipeline("g2g,ner,dp,pos")
+    nlp = Pipeline("g2g")
     # nlp = Pipeline("dp,pos,g2g_lite")
    
 
-    txts = ["Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou hanoun",
-            "o volos kai h larisa einai poleis ths thessalias",
-            "Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
-    # txts = ["Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
+    # txts = ["Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou hanoun",
+    #         "o volos kai h larisa einai poleis ths thessalias",
+    #         "To ergasthrio tha meinei kleisto shmera"
+    #         "Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
     
-    # txts = ["Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
-    
+    txts = ["transliterate the following greeklish text into greek: prepei na kanoume adjust sta kainouria guidelines epeidh to evaluation tha rthei kai tha einai poly arnhtiko"]
+
+    txts = ["Kirissw tin epanalhpsi ths synodu of Eiropaϊkou Parliament i opia ihe diakopei thn Paraskeuh 17 December kai sas apeuuino xana tis thermes eyxes mu, elpizodas na perasate kala stis diakopes."]
+    txts = ["Paidia den exei noima giati xwris revma den zei kaneis prwron!kai defterwn"]
     for txt in txts:
 
         doc = nlp(txt)

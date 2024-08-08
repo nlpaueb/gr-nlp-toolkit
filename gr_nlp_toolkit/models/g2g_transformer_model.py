@@ -39,6 +39,6 @@ class ByT5Model(nn.Module):
         """
         self.model.eval()
         tokenized_text = self.tokenizer(text, return_tensors="pt").input_ids
-        output = self.model.generate(tokenized_text.to(self.device), max_length=200)
+        output = self.model.generate(tokenized_text.to(self.device), max_length=1000)
 
         return self.tokenizer.decode(output[0], skip_special_tokens=True)
