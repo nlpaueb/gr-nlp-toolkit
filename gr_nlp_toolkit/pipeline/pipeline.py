@@ -122,15 +122,10 @@ class Pipeline:
 if __name__ == "__main__": 
 
     nlp = Pipeline("g2g,ner,dp,pos")
-    # nlp = Pipeline("dp,pos,g2g_lite")
    
-
     txts = ["Uparxoun autoi pou kerdizoun apo mia katastash kai autoi pou hanoun",
             "o volos kai h larisa einai poleis ths thessalias",
             "Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
-    # txts = ["Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
-    
-    # txts = ["Η Αθήνα είναι η μεγαλύτερη πόλη της Ελλάδας"]
     
     for txt in txts:
 
