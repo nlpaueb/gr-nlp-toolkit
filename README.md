@@ -34,10 +34,23 @@ print(doc.text)
 ```
 
 - DP, POS, NER processors
-  ```python
-  nlp = Pipeline("pos,ner,dp")  # Use pos, ner, and dp processors
-  doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro 2020.")
-  ```
+```python
+nlp = Pipeline("pos,ner,dp")  # Use pos, ner, and dp processors
+doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro 2020.")
+
+for token in doc.tokens:
+  print(token.text) # the text of the token
+  
+  print(token.ner) # the named entity label in IOBES encoding : str
+  
+  print(token.upos) # the UPOS tag of the token
+  print(token.feats) # the morphological features for the token
+  
+  print(token.head) # the head of the token
+  print(token.deprel) # the dependency relation between the current token and its head
+```
+
+
 The first time you use a processor, the models are downloaded from Hugging Face and stored into the .cache folder. The NER, DP and POS processors are each about 500 MB, while the G2G processor is about 1.2 G in size.
 
 
