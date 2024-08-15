@@ -86,9 +86,10 @@ annotates the text with a specific task's annotations.
   - If the input text is already in greek, the G2G processor is skipped
   - The first time you use a processor, the models are downloaded from Hugging Face and stored into the .cache folder. The NER, DP and POS processors are each about 500 MB, while the G2G processor is about 1.2 GB in size
 
-
 ## Hugging Face repositories
-
+- ByT5-g2g: https://huggingface.co/AUEB-NLP/ByT5_g2g
+- gr-nlp-toolkit: https://huggingface.co/AUEB-NLP/ByT5_g2g
+- 
 ## References
 C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf
 
