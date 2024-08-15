@@ -89,7 +89,7 @@ annotates the text with a specific task's annotations.
 ## Hugging Face repositories
 - ByT5-g2g: https://huggingface.co/AUEB-NLP/ByT5_g2g
 - gr-nlp-toolkit: https://huggingface.co/AUEB-NLP/ByT5_g2g
-- 
+  
 ## References
 C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf
 
