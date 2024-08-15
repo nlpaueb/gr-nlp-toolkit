@@ -16,10 +16,10 @@ pip install gr-nlp-toolkit
 To use the toolkit first initialize a Pipeline specifying which processors you need. Each processor 
 annotates the text with a specific task's annotations.
 
-- To obtain Part-of-Speech and Morphological Tagging annotations add the `pos` processor
-- To obtain Named Entity Recognition annotations add the `ner` processor
-- To obtain Dependency Parsing annotations add the `dp` processor
-- To enable the transliteration from Greeklish to Greek add the `g2g` processor or the `g2g_lite` processor for a lighter but less accurate model
+- To obtain Part-of-Speech and Morphological Tagging annotations, add the `pos` processor
+- To obtain Named Entity Recognition annotations, add the `ner` processor
+- To obtain Dependency Parsing annotations, add the `dp` processor
+- To enable the transliteration from Greeklish to Greek, add the `g2g` processor or the `g2g_lite` processor for a lighter but less accurate model
   (Greeklish to Greek transliteration example : Thessalonikh -> Θεσσαλονίκη)
 
 ### Example Usage Scenarios
