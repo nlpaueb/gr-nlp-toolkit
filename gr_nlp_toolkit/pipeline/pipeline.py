@@ -73,6 +73,12 @@ class Pipeline:
         self._processors = []
 
         processors = set(processors.split(","))
+
+        # ner: Named Entity Recognition Processor 
+        # pos: Part of Speech Recognition Processor
+        # dp: Dependency Parsing 
+        # g2g: Greeklish to Greek Transliteration Processor (ByT5 model)
+        # g2g_lite: Greeklish to Greek Transliteration Processor (LSTM model)
         available_processors = ['ner', 'pos', 'dp', 'g2g_lite', 'g2g']
 
 

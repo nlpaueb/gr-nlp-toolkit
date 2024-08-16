@@ -42,6 +42,7 @@ class NER(AbstractProcessor):
             ValueError: If the number of entities is not 18.
         """
 
+        # Entities are the semantic catgories of the NER task (more info: http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf)
         if entities == 18:
             self.I2L = ner_labels
             self.output_size = len(self.I2L)

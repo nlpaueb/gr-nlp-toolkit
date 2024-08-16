@@ -6,12 +6,12 @@ from gr_nlp_toolkit.models.g2g_RBNLM_model import LanguageModel
 from gr_nlp_toolkit.models.g2g_transformer_model import ByT5Model
 import torch
 import pickle
-import time
 
 def detect_language(text):
     """
     Checks whether the majority of the letters in the input text are in the greek or the latin script
-
+    It is used to identify whether the text is in greek or greeklish (latin script), in order to skip unnecessary conversions.
+    
     Args:
         text (str): The input text
 

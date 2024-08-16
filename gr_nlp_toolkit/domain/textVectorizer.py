@@ -7,7 +7,8 @@ import pickle
 
 class TextVectorizer:
     """
-    Used to vectorize given text based on a learned vocabulary.
+    Used to vectorize given text based on a learned vocabulary. 
+    It is used by the RBNLM model to encode the text into numbers that can be then fed into the LSTM model.
     After training the vocabulary on a corpus, the resulting encoding is:
     1                         : Padding
     [1 to max_vocab_size+1]   : tokens learnt in the vocab. (This could be smaller than the actual max number provided)
