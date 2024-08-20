@@ -138,7 +138,7 @@ class LanguageModel:
         Args:
             path (str): The path to the pre-trained model.
         """
-        self.model.load_state_dict(torch.load(path))
+        self.model.load_state_dict(torch.load(path, weights_only=True))
 
     def translate(self, sentences, beams):
         """

@@ -11,7 +11,7 @@ def detect_language(text):
     """
     Checks whether the majority of the letters in the input text are in the greek or the latin script
     It is used to identify whether the text is in greek or greeklish (latin script), in order to skip unnecessary conversions.
-    
+
     Args:
         text (str): The input text
 
@@ -55,6 +55,7 @@ class G2G(AbstractProcessor):
         self.device = torch.device(device)
         
         if self.mode == 'LSTM':
+            # Define the model parameters (more info: https://aclanthology.org/2024.lrec-main.1330/)
             input_size = 120
             embed_size = 32
             hidden_size = 512
@@ -69,7 +70,7 @@ class G2G(AbstractProcessor):
             self.text_vectorizer = TextVectorizer("char")
             
             if(model_path is not None):
-                self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+                self.model.load_state_dict(torch.load(model_path, map_location=self.device, weights_only=True))
 
             
             if(tokenizer_path is not None):

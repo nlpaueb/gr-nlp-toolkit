@@ -49,7 +49,7 @@ class DP(AbstractProcessor):
 
         # Load the pretrained model if provided
         if model_path is not None:
-            self._model.load_state_dict(torch.load(model_path, map_location=self.device), strict=False)
+            self._model.load_state_dict(torch.load(model_path, map_location=self.device, weights_only=True), strict=False)
 
     def __call__(self, doc: Document) -> Document:
         """
