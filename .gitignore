@@ -136,3 +136,8 @@ gr_nlp_toolkit/tmp/
 .vscode/
 dist/
 .pytest_cache/
+test_toolkit_venv/
+
+#pipenv
+Pipfile
+Pipfile.lock

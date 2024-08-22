@@ -25,8 +25,8 @@ setuptools.setup(
     packages=setuptools.find_packages(where=".", exclude="./test_gr_nlp_toolkit"),
     python_requires=">=3.9",
     install_requires=[
-         'torch',
-         'transformers',
+         'torch>=2.1.2',
+         'transformers>=4.11.1',
          'huggingface_hub'
     ]
 )
