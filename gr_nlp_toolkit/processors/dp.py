@@ -69,14 +69,14 @@ class DP(AbstractProcessor):
        
         predictions_heads = self._model(input_ids.to(self.device), text_len.to(self.device))
         predictions_heads = self.softmax(predictions_heads[output_heads])
-        predictions_heads = torch.argmax(predictions_heads[0], axis=-1).detach().numpy()
+        predictions_heads = torch.argmax(predictions_heads[0], axis=-1).detach().cpu().numpy()
 
         # Predict dependency relations (deprels)
         output_deprels = 'gathered_deprels'
         
         predictions_deprels = self._model(input_ids.to(self.device), text_len.to(self.device))
         predictions_deprels = self.softmax(predictions_deprels[output_deprels])
-        predictions_deprels = torch.argmax(predictions_deprels[0], axis=-1).detach().numpy()
+        predictions_deprels = torch.argmax(predictions_deprels[0], axis=-1).detach().cpu().numpy()
 
         # map predictions -> tokens, special tokens are not included
         i = 0

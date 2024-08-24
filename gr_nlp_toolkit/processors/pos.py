@@ -73,7 +73,7 @@ class POS(AbstractProcessor):
             output = self.softmax(output[feat])
 
             
-            predictions[feat] = torch.argmax(output[0], axis=-1).detach().numpy()
+            predictions[feat] = torch.argmax(output[0], axis=-1).detach().cpu().numpy()
 
         # set upos
         upos_predictions = predictions['upos']

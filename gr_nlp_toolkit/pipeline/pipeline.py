@@ -60,16 +60,21 @@ class Pipeline:
 
     """
 
-    def __init__(self, processors: str):
+    def __init__(self, processors: str, use_cpu: bool = False):
         """ 
         Initializes the pipeline with the specified processors
 
         Args:
             processors: A string with the names of the processors you want to load, available values: 'ner', 'por', 'dp
-           
+            use_cpu: A boolean that specifies if the pipeline will run on the CPU
         """
 
-        self.device = get_device_name()
+        # if the user wants to use the CPU, we set the device to 'cpu'
+        if(use_cpu):
+            self.device = "cpu"
+        else:
+            self.device = get_device_name()
+
         self._processors = []
 
         processors = set(processors.split(","))

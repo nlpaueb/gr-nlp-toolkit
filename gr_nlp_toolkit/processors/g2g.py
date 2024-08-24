@@ -82,8 +82,7 @@ class G2G(AbstractProcessor):
                     
 
         elif self.mode == 'transformer':
-            self.model = ByT5Model(model_path)
-            self.model.to(self.device)
+            self.model = ByT5Model(model_path, device=self.device)
             self.model.eval()
 
 
@@ -109,9 +108,5 @@ class G2G(AbstractProcessor):
             doc.text = self.LM.translate([doc.text], self.beam_size)[0]
         elif(self.mode == 'transformer'):
             doc.text = self.model(doc.text)
+
         return doc
-    
-
-
-
-

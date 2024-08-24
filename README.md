@@ -92,6 +92,7 @@ annotates the text with a specific task's annotations.
 
 - If the input text is already in greek, the G2G processor is skipped
 - The first time you use a processor, the models are downloaded from Hugging Face and stored into the .cache folder. The NER, DP and POS processors are each about 500 MB, while the G2G processor is about 1.2 GB in size
+- If your machine has an accelerator but you want to run the process on the CPU, you can pass the flag use_cpu=True to the Pipeline object. By default, this flag is set to False.
 
 ## Hugging Face repositories
 

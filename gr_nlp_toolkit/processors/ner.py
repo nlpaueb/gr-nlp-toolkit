@@ -80,7 +80,7 @@ class NER(AbstractProcessor):
         # Perform NER with the model
         output = self._model(input_ids.to(self.device), text_len.to(self.device))
         predictions = self.softmax(output)
-        predictions = torch.argmax(predictions[0], axis=-1).detach().numpy()
+        predictions = torch.argmax(predictions[0], axis=-1).detach().cpu().numpy()
 
         # map predictions -> tokens, special tokens are not included
         i = 0
