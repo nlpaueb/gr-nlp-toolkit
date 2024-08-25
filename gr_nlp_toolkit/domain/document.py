@@ -71,10 +71,12 @@ class Document:
     def token_mask(self, value):
         self._token_mask = value
 
+
     @property
     def dataloader(self):
         return self._dataloader
 
+    
     @dataloader.setter
     def dataloader(self, value):
         self._dataloader = value

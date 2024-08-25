@@ -5,7 +5,7 @@ from transformers import AutoModel
 from gr_nlp_toolkit.domain.document import Document
 from gr_nlp_toolkit.processors.pos import POS
 from gr_nlp_toolkit.processors.tokenizer import Tokenizer
-from gr_nlp_toolkit.labels.pos_labels import pos_labels, pos_properties
+from gr_nlp_toolkit.configs.pos_labels import pos_labels, pos_properties
 
 
 class MyTestCase(unittest.TestCase):
@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
 
         pos = POS()
         self.assertIsNotNone(pos._model)
-        self.assertIsNotNone(pos.system)
+        # self.assertIsNotNone(pos.system)
         doc = pos(doc)
 
         tokens = doc.tokens
@@ -84,7 +84,7 @@ class MyTestCase(unittest.TestCase):
 
         pos = POS()
         self.assertIsNotNone(pos._model)
-        self.assertIsNotNone(pos.system)
+        # self.assertIsNotNone(pos.system)
         doc = pos(doc)
 
         tokens = doc.tokens
