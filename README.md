@@ -77,6 +77,7 @@ annotates the text with a specific task's annotations.
 - Use all the processors together (input text in Greeklish)
 
   ```python
+  from gr_nlp_toolkit import Pipeline
   nlp = Pipeline("pos,ner,dp,g2g")  # Instantiate the Pipeline with the G2G, DP, POS and NER processors
 
   doc = nlp("O Volos kai h Larisa einai sthn Thessalia") # Apply the pipeline to a sentence in Greeklish
