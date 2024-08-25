@@ -34,6 +34,8 @@ annotates the text with a specific task's annotations.
 - DP, POS, NER processors (input text in Greek)
 
   ```python
+  from gr_nlp_toolkit import Pipeline
+
   nlp = Pipeline("pos,ner,dp")  # Instantiate the Pipeline with the DP, POS and NER processors
   doc = nlp("Η Ιταλία κέρδισε την Αγγλία στον τελικό του Euro 2020.") # Apply the pipeline to a sentence in Greek
 
