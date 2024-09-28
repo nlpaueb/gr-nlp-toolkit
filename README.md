@@ -103,17 +103,15 @@ annotates the text with a specific task's annotations.
 - If the input text is already in Greek, the G2G (Greeklish-to-Greek) processor is skipped.
 - If your machine has an accelerator but you want to run the process on the CPU, you can pass the flag `use_cpu=True` to the Pipeline object. By default, `use_cpu` is set to *False*. 
 
-## Hugging Face related repositories
+## Hugging Face related repositories, where the processors are downloaded from
 
-- ByT5-g2g: https://huggingface.co/AUEB-NLP/ByT5_g2g
-- gr-nlp-toolkit: https://huggingface.co/AUEB-NLP/ByT5_g2g
+- Greeklish-to-Greek transliteration processor (ByT5): [https://huggingface.co/AUEB-NLP/ByT5_g2g](https://huggingface.co/AUEB-NLP/ByT5_g2g)
+- NER/POS/DP processors: [https://huggingface.co/AUEB-NLP/ByT5_g2g](https://huggingface.co/AUEB-NLP/gr-nlp-toolkit)
 
 ## References
 
-C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf
+1. C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf
 
-N. Smyrnioudis, "A Transformer-based natural language processing toolkit for Greek -- Named entity recognition and multi-task learning", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021.  http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf
+2. N. Smyrnioudis, "A Transformer-based natural language processing toolkit for Greek -- Named entity recognition and multi-task learning", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf 
 
-Toumazatos, A., Pavlopoulos, J., Androutsopoulos, I., & Vassos, S. (2024). Still All Greeklish to Me: Greeklish to Greek Transliteration. In Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) (pp. 15309–15319).
-
-https://aclanthology.org/2024.lrec-main.1330/
+3. A. Toumazatos, J. Pavlopoulos, I. Androutsopoulos, & S. Vassos, "Still All Greeklish to Me: Greeklish to Greek Transliteration." In Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) (pp. 15309–15319). https://aclanthology.org/2024.lrec-main.1330/
