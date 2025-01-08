@@ -1,15 +1,15 @@
-# gr-nlp-toolkit: The state-of-the-art NLP Toolkit for (modern) Greek.
+# `gr-nlp-toolkit`: The state-of-the-art Greek NLP Toolkit.
 
 <p align="center">
   <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
 </p>
 
-The toolkit has state-of-the-art performance in Greek and supports:
+`gr-nlp-toolkit` is a Python toolkit with state-of-the-art performance in (modern) Greek, supporting the following functionalities:
 1. Named Entity Recognition (NER)
 2. Part-of-Speech Tagging (POS Tagging)
 3. Morphological tagging
 4. Dependency parsing
-5. Greeklish to Greek transliteration
+5. Greeklish to Greek transliteration ("kalimera" -> "καλημερα")
 
 ## Web Demo/Playground 
 
