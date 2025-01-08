@@ -1,4 +1,4 @@
-# `gr-nlp-toolkit`: The state-of-the-art Greek NLP Toolkit.
+# `gr-nlp-toolkit`
 
 <p align="center">
   <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
@@ -110,7 +110,7 @@ For example:
 
 Read the full technical report/paper here: https://arxiv.org/abs/2412.08520
 
-If you use our toolkit, please cite it with the following bibtex:
+If you use our toolkit, please cite it:
 ```bibtex
 @misc{loukas2024grnlptoolkitopensourcenlptoolkit,
       title={GR-NLP-TOOLKIT: An Open-Source NLP Toolkit for Modern Greek}, 
