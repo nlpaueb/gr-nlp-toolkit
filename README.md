@@ -1,7 +1,7 @@
 # gr-nlp-toolkit: The state-of-the-art NLP Toolkit for (modern) Greek.
 
-<div style="text-align: left;">
-    <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="150"/>
+<div style="text-align: center;">
+    <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
 </div>
 
 The toolkit has state-of-the-art performance in Greek and supports:
