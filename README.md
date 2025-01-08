@@ -1,8 +1,8 @@
 # gr-nlp-toolkit: The state-of-the-art NLP Toolkit for (modern) Greek.
 
-<div style="text-align: center;">
-    <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
-</div>
+<p align="center">
+  <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
+</p>
 
 The toolkit has state-of-the-art performance in Greek and supports:
 1. Named Entity Recognition (NER)
