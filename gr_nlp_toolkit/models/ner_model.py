@@ -1,6 +1,5 @@
-# import pytorch_wrapper.functional as pwF
-
 from torch import nn
+
 from gr_nlp_toolkit.models.util import create_mask_from_length
 
 
@@ -8,7 +7,7 @@ class NERBERTModel(nn.Module):
     """
     Named Entity Recognition (NER) model class based on BERT.
 
-    This class defines a NER model using a pre-trained BERT model 
+    This class defines a NER model using a pre-trained BERT model
     with a dropout and a linear layer on top.
 
     Attributes:
@@ -16,6 +15,7 @@ class NERBERTModel(nn.Module):
         _dp (nn.Dropout): Dropout layer for regularization.
         _output_linear (nn.Linear): Linear layer to produce model outputs.
     """
+
     def __init__(self, bert_model, model_output_size, dp):
         """
         Initializes the NERBERTModel with the specified parameters.
@@ -25,7 +25,7 @@ class NERBERTModel(nn.Module):
             model_output_size (int): The size of the output layer.
             dp (float): Dropout probability.
         """
-         
+
         super(NERBERTModel, self).__init__()
         self._bert_model = bert_model
         self._dp = nn.Dropout(dp)
@@ -46,5 +46,6 @@ class NERBERTModel(nn.Module):
         # Create attention mask
         attention_mask = create_mask_from_length(text_len, text.shape[1])
 
-        return self._output_linear(self._dp(self._bert_model(text, attention_mask=attention_mask)[0]))
-    
+        return self._output_linear(
+            self._dp(self._bert_model(text, attention_mask=attention_mask)[0])
+        )
