@@ -1,16 +1,24 @@
-# gr-nlp-toolkit
+# `gr-nlp-toolkit`
 
-A Transformer-based natural language processing toolkit for (modern) Greek. The toolkit has state-of-the-art performance in Greek and supports:
+<p align="center">
+  <img src="./logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
+</p>
+
+`gr-nlp-toolkit` is a Python toolkit with state-of-the-art performance in (modern) Greek, supporting the following functionalities:
 1. Named Entity Recognition (NER)
 2. Part-of-Speech Tagging (POS Tagging)
 3. Morphological tagging
 4. Dependency parsing
-5. Greeklish to Greek transliteration 
+5. Greeklish to Greek transliteration ("kalimera" -> "καλημερα")
+
+## Web Demo/Playground 
+
+Apart from the python library (details below), you can also interact with `gr-nlp-toolkit` in a no-code fashion by visiting our web playground here: https://huggingface.co/spaces/AUEB-NLP/greek-nlp-toolkit-demo
 
 ## Installation
-We support Python 3.9+.
+The toolkit is supported for Python 3.9+.
 
-You can install the toolkit from PyPI by executing the following in the command line:
+You can install it from PyPI by executing the following in the command line:
 
 ```sh
 pip install gr-nlp-toolkit
@@ -18,11 +26,12 @@ pip install gr-nlp-toolkit
 
 ## Usage
 
-### Available Processors
+### Available Processors/Features
 
-To use the toolkit, first initialize a Pipeline specifying which processors you need. Each processor
+To use the toolkit, first initialize a `Pipeline` specifying which task processors you need. Each processor
 annotates the text with a specific task's annotations.
 
+For example:
 - To obtain Part-of-Speech and Morphological Tagging annotations, add the `pos` processor
 - To obtain Named Entity Recognition annotations, add the `ner` processor
 - To obtain Dependency Parsing annotations, add the `dp` processor
@@ -97,21 +106,36 @@ annotates the text with a specific task's annotations.
     print(token.deprel) # the dependency relation between the current token and its head
   ```
 
-**Notes**:
+## Paper
+
+Read the full technical report/paper here: https://arxiv.org/abs/2412.08520
+
+If you use our toolkit, please cite it:
+```bibtex
+@misc{loukas2024grnlptoolkitopensourcenlptoolkit,
+      title={GR-NLP-TOOLKIT: An Open-Source NLP Toolkit for Modern Greek}, 
+      author={Lefteris Loukas and Nikolaos Smyrnioudis and Chrysa Dikonomaki and Spyros Barbakos and Anastasios Toumazatos and John Koutsikakis and Manolis Kyriakakis and Mary Georgiou and Stavros Vassos and John Pavlopoulos and Ion Androutsopoulos},
+      year={2024},
+      eprint={2412.08520},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.08520}, 
+}
+```
+
+----
+### Technical Notes:
 
 - The *first* time you use a processor, the models are downloaded from Hugging Face and stored into the .cache folder. The NER, DP and POS processors are each about 500 MB, while the G2G processor is about 1.2 GB in size.
 - If the input text is already in Greek, the G2G (Greeklish-to-Greek) processor is skipped.
-- If your machine has an accelerator but you want to run the process on the CPU, you can pass the flag `use_cpu=True` to the Pipeline object. By default, `use_cpu` is set to *False*. 
-
-## Hugging Face related repositories, where the processors are downloaded from
-
-- Greeklish-to-Greek transliteration processor (ByT5): [https://huggingface.co/AUEB-NLP/ByT5_g2g](https://huggingface.co/AUEB-NLP/ByT5_g2g)
-- NER/POS/DP processors: [https://huggingface.co/AUEB-NLP/ByT5_g2g](https://huggingface.co/AUEB-NLP/gr-nlp-toolkit)
+- If your machine has an accelerator but you want to run the process on the CPU, you can pass the flag `use_cpu=True` to the Pipeline object. By default, `use_cpu` is set to *False*.
+- The Greeklish-to-Greek transliteration processor (ByT5) weights can be found in HuggingFace: [https://huggingface.co/AUEB-NLP/ByT5_g2g](https://huggingface.co/AUEB-NLP/ByT5_g2g)
+- The NER/POS/DP processors/weights can be found in HuggingFace: [https://huggingface.co/AUEB-NLP/gr-nlp-toolkit](https://huggingface.co/AUEB-NLP/gr-nlp-toolkit)
 
 ## References
+While many methodology details are shared in the [GR-NLP-TOOLKIT paper publication @ COLING 2025 (see above)](https://arxiv.org/abs/2412.08520), additional research details can be found here:
+1. C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf *(POS/DP/Morphological tagging processor)*
 
-1. C. Dikonimaki, "A Transformer-based natural language processing toolkit for Greek -- Part of speech tagging and dependency parsing", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/dikonimaki_bsc_thesis.pdf
+2. N. Smyrnioudis, "A Transformer-based natural language processing toolkit for Greek -- Named entity recognition and multi-task learning", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf *(NER processor)*
 
-2. N. Smyrnioudis, "A Transformer-based natural language processing toolkit for Greek -- Named entity recognition and multi-task learning", BSc thesis, Department of Informatics, Athens University of Economics and Business, 2021. http://nlp.cs.aueb.gr/theses/smyrnioudis_bsc_thesis.pdf 
-
-3. A. Toumazatos, J. Pavlopoulos, I. Androutsopoulos, & S. Vassos, "Still All Greeklish to Me: Greeklish to Greek Transliteration." In Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) (pp. 15309–15319). https://aclanthology.org/2024.lrec-main.1330/
+3. A. Toumazatos, J. Pavlopoulos, I. Androutsopoulos, & S. Vassos, "Still All Greeklish to Me: Greeklish to Greek Transliteration." In Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) (pp. 15309–15319). https://aclanthology.org/2024.lrec-main.1330/ *(Greeklish-to-Greek processor)*
