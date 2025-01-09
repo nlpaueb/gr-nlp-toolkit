@@ -107,19 +107,19 @@ For example:
   ```
 
 ## Paper
-
+The software was presented at COLING 2025. 
 Read the full technical report/paper here: https://arxiv.org/abs/2412.08520
 
 If you use our toolkit, please cite it:
 ```bibtex
-@misc{loukas2024grnlptoolkitopensourcenlptoolkit,
-      title={GR-NLP-TOOLKIT: An Open-Source NLP Toolkit for Modern Greek}, 
-      author={Lefteris Loukas and Nikolaos Smyrnioudis and Chrysa Dikonomaki and Spyros Barbakos and Anastasios Toumazatos and John Koutsikakis and Manolis Kyriakakis and Mary Georgiou and Stavros Vassos and John Pavlopoulos and Ion Androutsopoulos},
-      year={2024},
-      eprint={2412.08520},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2412.08520}, 
+@misc{loukas-etal-coling2025-greek-nlp-toolkit,
+    title={GR-NLP-TOOLKIT: An Open-Source NLP Toolkit for Modern Greek}, 
+    author={Lefteris Loukas and Nikolaos Smyrnioudis and Chrysa Dikonomaki and Spyros Barbakos and Anastasios Toumazatos and John Koutsikakis and Manolis Kyriakakis and Mary Georgiou and Stavros Vassos and John Pavlopoulos and Ion Androutsopoulos},
+    year={2025},
+    eprint={2412.08520},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL},
+    url={https://arxiv.org/abs/2412.08520}, 
 }
 ```
 
