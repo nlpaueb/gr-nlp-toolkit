@@ -1,8 +1,8 @@
 # `gr-nlp-toolkit`
 
-<div style="text-align: center;">
+<p align="center">
     <img src="https://raw.githubusercontent.com/nlpaueb/gr-nlp-toolkit/refs/heads/main/logo.png" alt="gr-nlp-toolkit Logo" width="200"/>
-</div>
+</p>
 
 `gr-nlp-toolkit` is a Python toolkit with state-of-the-art performance in (modern) Greek, supporting the following functionalities:
 1. Named Entity Recognition (NER)
