@@ -7,7 +7,7 @@ setuptools.setup(
     name="gr-nlp-toolkit",
     version="0.2.0",
     author="nlpaueb",
-    author_email="p3170148@aueb.gr, p3170039@aueb.gr, spirosbarbakos@gmail.com,  eleftheriosloukas@aueb.gr, ipavlopoulos@aueb.gr",
+    author_email="p3170148@aueb.gr, p3170039@aueb.gr, spirosbarbakos7@gmail.com,  eleftheriosloukas@aueb.gr, ipavlopoulos@aueb.gr",
     description="The state-of-the-art NLP toolkit for (modern) Greek",
     long_description=long_description,
     long_description_content_type="text/markdown",
