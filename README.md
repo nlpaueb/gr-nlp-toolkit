@@ -11,9 +11,11 @@
 4. Dependency parsing
 5. Greeklish to Greek transliteration ("kalimera" -> "καλημερα")
 
-## Web Demo/Playground 
+## Web Demo 🤗
 
 Apart from the python library (details below), you can also interact with `gr-nlp-toolkit` in a no-code fashion by visiting our web playground here: https://huggingface.co/spaces/AUEB-NLP/greek-nlp-toolkit-demo
+
+Thanks to HuggingFace 🤗 for the GPUs.
 
 ## Installation
 The toolkit is supported for Python 3.9+.
@@ -107,19 +109,39 @@ For example:
   ```
 
 ## Paper
-The software was presented at COLING 2025. 
-Read the full technical report/paper here: https://arxiv.org/abs/2412.08520
+The software was presented as a paper at COLING 2025. 
+Read the full technical report/paper here: [https://arxiv.org/abs/2412.08520](https://aclanthology.org/2025.coling-demos.17/)
 
 If you use our toolkit, please cite it:
 ```bibtex
-@misc{loukas-etal-coling2025-greek-nlp-toolkit,
-    title={GR-NLP-TOOLKIT: An Open-Source NLP Toolkit for Modern Greek}, 
-    author={Lefteris Loukas and Nikolaos Smyrnioudis and Chrysa Dikonomaki and Spyros Barbakos and Anastasios Toumazatos and John Koutsikakis and Manolis Kyriakakis and Mary Georgiou and Stavros Vassos and John Pavlopoulos and Ion Androutsopoulos},
-    year={2025},
-    eprint={2412.08520},
-    archivePrefix={arXiv},
-    primaryClass={cs.CL},
-    url={https://arxiv.org/abs/2412.08520}, 
+@inproceedings{loukas-etal-coling2025-greek-nlp-toolkit,
+    title = "{GR}-{NLP}-{TOOLKIT}: An Open-Source {NLP} Toolkit for {M}odern {G}reek",
+    author = "Loukas, Lefteris  and
+      Smyrnioudis, Nikolaos  and
+      Dikonomaki, Chrysa  and
+      Barbakos, Spiros  and
+      Toumazatos, Anastasios  and
+      Koutsikakis, John  and
+      Kyriakakis, Manolis  and
+      Georgiou, Mary  and
+      Vassos, Stavros  and
+      Pavlopoulos, John  and
+      Androutsopoulos, Ion",
+    editor = "Rambow, Owen  and
+      Wanner, Leo  and
+      Apidianaki, Marianna  and
+      Al-Khalifa, Hend  and
+      Eugenio, Barbara Di  and
+      Schockaert, Steven  and
+      Mather, Brodie  and
+      Dras, Mark",
+    booktitle = "Proceedings of the 31st International Conference on Computational Linguistics: System Demonstrations",
+    month = jan,
+    year = "2025",
+    address = "Abu Dhabi, UAE",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.coling-demos.17/",
+    pages = "174--182",
 }
 ```
 
