@@ -110,7 +110,7 @@ For example:
 
 ## Paper
 The software was presented as a paper at COLING 2025. 
-Read the full technical report/paper here: [https://arxiv.org/abs/2412.08520](https://aclanthology.org/2025.coling-demos.17/)
+Read the full technical report/paper here: [https://aclanthology.org/2025.coling-demos.17/](https://aclanthology.org/2025.coling-demos.17/)
 
 If you use our toolkit, please cite it:
 ```bibtex
