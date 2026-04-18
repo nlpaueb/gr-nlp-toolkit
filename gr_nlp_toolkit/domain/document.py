@@ -9,8 +9,8 @@ class Document:
         """
         Create a Document object setting possible parameters other than the text as None
 
-        Keyword arguments:
-        param text: The text of the document
+        Args:
+            text: The text of the document
         """
         self._text = text
 
@@ -63,7 +63,7 @@ class Document:
     @property
     def token_mask(self):
         """
-        A tensor of shape [1,mseq] containign zeros at the positions of the input_ids tensor that map to subword tokens that are non first subword tokens
+        A tensor of shape [1,mseq] containing zeros at the positions of the input_ids tensor that map to subword tokens that are non first subword tokens
         """
         return self._token_mask
 

@@ -65,12 +65,12 @@ class Pipeline:
         Initializes the pipeline with the specified processors
 
         Args:
-            processors: A string with the names of the processors you want to load, available values: 'ner', 'por', 'dp
+            processors: A string with the names of the processors you want to load, available values: 'ner', 'pos', 'dp', 'g2g', 'g2g_lite'
             use_cpu: A boolean that specifies if the pipeline will run on the CPU
         """
 
         # if the user wants to use the CPU, we set the device to 'cpu'
-        if(use_cpu):
+        if use_cpu:
             self.device = "cpu"
         else:
             self.device = get_device_name()
@@ -80,7 +80,7 @@ class Pipeline:
         processors = set(processors.split(","))
 
         # ner: Named Entity Recognition Processor 
-        # pos: Part of Speech Recognition Processor
+        # pos: Part-of-Speech Tagging Processor
         # dp: Dependency Parsing 
         # g2g: Greeklish to Greek Transliteration Processor (ByT5 model)
         # g2g_lite: Greeklish to Greek Transliteration Processor (LSTM model)
@@ -125,7 +125,6 @@ class Pipeline:
 
         # Pass the document through every processor
         for processor in self._processors:
-            # print(processor)
             processor(self._doc)
 
         return self._doc
