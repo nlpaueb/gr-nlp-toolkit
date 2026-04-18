@@ -62,20 +62,14 @@ class DP(AbstractProcessor):
             Document: The document with head and deprel tags assigned to the tokens.
         """
 
-        # Predict heads
+        # Single forward pass - model returns both heads and deprels
         input_ids, text_len = next(iter(doc.dataloader))['input']
+        output = self._model(input_ids.to(self.device), text_len.to(self.device))
 
-        output_heads = 'heads'
-       
-        predictions_heads = self._model(input_ids.to(self.device), text_len.to(self.device))
-        predictions_heads = self.softmax(predictions_heads[output_heads])
+        predictions_heads = self.softmax(output['heads'])
         predictions_heads = torch.argmax(predictions_heads[0], axis=-1).detach().cpu().numpy()
 
-        # Predict dependency relations (deprels)
-        output_deprels = 'gathered_deprels'
-        
-        predictions_deprels = self._model(input_ids.to(self.device), text_len.to(self.device))
-        predictions_deprels = self.softmax(predictions_deprels[output_deprels])
+        predictions_deprels = self.softmax(output['gathered_deprels'])
         predictions_deprels = torch.argmax(predictions_deprels[0], axis=-1).detach().cpu().numpy()
 
         # map predictions -> tokens, special tokens are not included

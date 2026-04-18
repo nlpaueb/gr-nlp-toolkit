@@ -68,12 +68,12 @@ class POS(AbstractProcessor):
 
         input_ids, text_len = next(iter(doc.dataloader))['input']
 
-        for feat in self.feat_to_I2L.keys():
-            output = self._model(input_ids.to(self.device), text_len.to(self.device))
-            output = self.softmax(output[feat])
+        # Single forward pass - the model returns all features at once
+        output = self._model(input_ids.to(self.device), text_len.to(self.device))
 
-            
-            predictions[feat] = torch.argmax(output[0], axis=-1).detach().cpu().numpy()
+        for feat in self.feat_to_I2L.keys():
+            feat_output = self.softmax(output[feat])
+            predictions[feat] = torch.argmax(feat_output[0], axis=-1).detach().cpu().numpy()
 
         # set upos
         upos_predictions = predictions['upos']
