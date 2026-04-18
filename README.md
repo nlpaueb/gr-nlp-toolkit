@@ -74,7 +74,7 @@ For example:
 
   A small detail is that to get the `Token` object that is the head of another token you need to access
   `doc.tokens[head-1]`. The reason for this is that the enumeration of the tokens starts from 1 and when the
-  field `token.head` is set to 0, that means the token is the root of the word.
+  field `token.head` is set to 0, that means the token is the root of the sentence.
 
 - Greeklish to Greek Conversion (input text in Greeklish)
 
@@ -145,8 +145,7 @@ If you use our toolkit, please cite it:
 }
 ```
 
-----
-### Technical Notes:
+## Technical Notes
 
 - The *first* time you use a processor, the models are downloaded from Hugging Face and stored into the .cache folder. The NER, DP and POS processors are each about 500 MB, while the G2G processor is about 1.2 GB in size.
 - If the input text is already in Greek, the G2G (Greeklish-to-Greek) processor is skipped.
