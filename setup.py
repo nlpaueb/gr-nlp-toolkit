@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gr-nlp-toolkit",
-    version="0.2.0",
+    version="0.3.0",
     author="nlpaueb",
     author_email="p3170148@aueb.gr, p3170039@aueb.gr, spirosbarbakos7@gmail.com,  eleftheriosloukas@aueb.gr, ipavlopoulos@aueb.gr",
     description="The state-of-the-art NLP toolkit for (modern) Greek",
